@@ -9,6 +9,9 @@ class Header extends React.Component {
     this.state = {
       email: '',
       password: '',
+      first_name: '',
+      last_name:'',
+      logged: false
     }
   }
   handleChange = (e) => {
@@ -34,6 +37,7 @@ class Header extends React.Component {
   }
 
   handleRegister = async (e) => {
+  	console.log("hiting login handler in header Component");
     e.preventDefault();
     const registerResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/auth/register', {
       method: 'POST',
@@ -61,6 +65,21 @@ class Header extends React.Component {
             <Button type="Submit" color="green">Login</Button>
             <h3>Don't Have an Acount?</h3>
             <input type="Submit" color="green" value='Register' onClick={this.regOrLog} readOnly/>
+          </Form>
+          <hr/>
+          <Form onSubmit={this.handleRegister}>
+            <h1>Register</h1>
+            <Label> First Name</Label>
+            <Form.Input type='text' name="first_name" onChange={this.handleChange} />
+            <Label> Last Name</Label>
+            <Form.Input type='text' name="last_name" onChange={this.handleChange} />
+            <Label> Email</Label>
+            <Form.Input type='email' name="email" onChange={this.handleChange} />
+            <Label> Password</Label>
+            <Form.Input type='password' name="password" onChange={this.handleChange} />
+            <Button type="Submit" color="green">Register</Button>
+            <h3>Already Have an Acount?</h3>
+            <input type="Submit" color="green" value='Login' onClick={this.regOrLog}readOnly/>
           </Form>
       </div>
     );
