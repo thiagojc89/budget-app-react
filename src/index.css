@@ -13,5 +13,53 @@ code {
 }
 .header{
 	margin: 5px;
-	border: 2px solid black;
+	border: 10px solid black;
+}
+.MainComponent{
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  border: 10px solid black;
+}
+.main-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 5px;
+  border: 10px solid red;
+}
+
+.itemComponent{
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  border: 10px solid blue; 
+  height: 300px;
+}
+.chartComponent{
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  border: 10px solid green;
+  height: 300px;
+  width: 600px;
+}
+.newItemForm{
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  border: 10px solid green;
+  height: 300px;
+  width: 600px;
+}
+.newItemForm form{
+  display: flex;
+  flex-direction: column;
+}
+.menuComponent{
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  border: 10px solid navy;
+  height: 300px;
 }
