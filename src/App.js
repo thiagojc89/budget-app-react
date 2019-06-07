@@ -29,7 +29,6 @@ class App extends React.Component {
     // set state at app level based on a parameter 
     this.setState({
       email:userData.email,
-      password:userData.password,
       first_name:userData.first_name,
       last_name:userData.last_name,
       logged:userData.logged

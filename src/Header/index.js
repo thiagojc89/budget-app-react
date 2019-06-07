@@ -68,8 +68,8 @@ class Header extends React.Component {
           
   render() {
 
-    console.log("header props")
-    console.log(this.props)
+    // console.log("header props")
+    // console.log(this.props)
     // this.props.history.push("/mainpage");
     return (
       <div className="header">
