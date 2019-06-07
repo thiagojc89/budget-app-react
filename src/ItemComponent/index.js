@@ -22,9 +22,9 @@ const ItemComponent = (props)=>{
 		        <form onSubmit={props.hideChart}>
 		        	<button>New Item</button>
 		        </form>
-		        <ul>
-		        	{itens}
-		        </ul>
+		        
+		        {itens}
+		        
 	        </div>
 	)
 }

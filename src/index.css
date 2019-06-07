@@ -19,7 +19,7 @@ code {
   display: flex;
   flex-direction: column;
   margin: 5px;
-  border: 10px solid black;
+  /*border: 10px solid black;*/
 }
 .main-container{
   display: flex;
@@ -32,9 +32,15 @@ code {
 .itemComponent{
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   margin: 5px;
   border: 10px solid blue; 
   height: 300px;
+}
+.itemComponent li{
+  list-style: none;
+  margin: 3px;
+  padding-left: 10px; 
 }
 .chartComponent{
   display: flex;

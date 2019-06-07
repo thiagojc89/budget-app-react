@@ -28,7 +28,7 @@ class MainComponent extends React.Component {
 
 
   	  	try{
-  	  		const newItem = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem?budget_id='+this.state.budget_id, {
+  	  		const newItem = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem', {
 	  	  		method: 'POST',
 			    credentials: 'include',
 			    body: JSON.stringify(item),
@@ -39,7 +39,8 @@ class MainComponent extends React.Component {
 
    			const parsedResponse = await newItem.json();
 
-   			
+   			this.getitens()
+   			console.log('this is my new item >>>> ',parsedResponse);
 			this.setState({
 				hideChart: false,
 			})
@@ -59,6 +60,7 @@ class MainComponent extends React.Component {
    			const parsedResponse = await allitens.json();
 
    			// console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
+
 			this.setState({
 				hideChart: false,
 				allItens: parsedResponse
@@ -77,7 +79,7 @@ class MainComponent extends React.Component {
 			        
 			        <ItemComponent hideChart={this.hideChart} allItens={this.state.allItens}/>
 				    
-				    {this.state.hideChart?<NewItemForm createItens={this.createItens}/>:<ChartComponent/>}
+				    {this.state.hideChart?<NewItemForm createItens={this.createItens}/>:<ChartComponent allItens={this.state.allItens}/>}
 
 				    <div className="menuComponent">
 				        <p>menuComponent</p>
