@@ -39,11 +39,13 @@ class MainComponent extends React.Component {
 
    			const parsedResponse = await newItem.json();
 
-   			this.getitens()
    			console.log('this is my new item >>>> ',parsedResponse);
-			this.setState({
-				hideChart: false,
-			})
+   			this.getitens()
+
+   			// this causes infinite update
+			// this.setState({
+			// 	hideChart: false,
+			// })
   	  	}
   	  	catch(err){
   	  		console.log(err)
@@ -59,7 +61,7 @@ class MainComponent extends React.Component {
 
    			const parsedResponse = await allitens.json();
 
-   			// console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
+   			console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
 
 			this.setState({
 				hideChart: false,

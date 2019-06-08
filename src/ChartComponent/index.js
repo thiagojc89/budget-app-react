@@ -10,37 +10,50 @@ class ChartComponent extends React.Component {
 		this.state={
 			chartData:{
 				labels: [],
-				datasets:[
-				{
-					label:'COLOR', 
-					data:[100,200,100],
-					backgroundColor:[
+				datasets:[{
+					label: 'COLOR', 
+					data:[],
+					backgroundColor: [
 						'red',
 						'green',
-						'blue']
+						'blue'
+					]
 				}]
 			},
 		}
 	}
 	getLabels = ()=>{
+		console.log("G I");
+		// getting the labels from props
 		const labels = this.props.allItens.map(item=> item.name)
 		console.log(labels);
 
+		// concat oldlabes with new labels
 		const oldLabels = this.state.chartData.labels 
 		const allLabels = oldLabels.concat(labels)
 
-		console.log("all labels")
-		console.log(allLabels);
-
+		//making a copy of chartData
 		const newChartData = this.state.chartData 
 
 		newChartData.labels = allLabels
+
+
+		const value = this.props.allItens.map(item=> item.value)
+		console.log(value);
+
+		const oldValue = this.state.chartData.datasets[0].data
+		const allValues = oldValue.concat(value)
+
+		newChartData.datasets[0].data = allValues
+
 
 		this.setState({
 			chartData: newChartData
 		})
 	}
-	shouldComponentUpdate(nextProps, nextState){
+
+	shouldComponentUpdate(nextProps, nextState) {
+		console.log("S C U");
 
 		let flag = false 
 
@@ -50,13 +63,13 @@ class ChartComponent extends React.Component {
 			}
 		})
 
-		if (flag) {
+		if(flag) {
 			this.getLabels()
 		}
-
 		return flag
 	}
-	render(){
+	
+	render() {
 		console.log("RENDERING")
 		console.log("chart props:");
 		console.log(this.props.allItens);
@@ -81,7 +94,7 @@ class ChartComponent extends React.Component {
                             		yAxes: [{
                                 		ticks: {
                                     		beginAtZero:true,
-                                    		stepSize: 50
+                                    		stepSize: 200
                                 			}
                             			}]
                         			}
