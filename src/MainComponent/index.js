@@ -12,11 +12,54 @@ class MainComponent extends React.Component {
 	    	budget_id:'',
 	    	itens:[],
 	    	allItens:[],
-	    	hideChart: false
+	    	hideChart: false,
+	    	chartData:{
+				labels: [],
+				datasets:[{
+					label: 'COLOR', 
+					data:[],
+					backgroundColor: [
+						'red',
+						'green',
+						'blue'
+					]
+				}]
+			}
 	    }
+	}
+	getLabels = ()=>{
+		console.log("G I");
+		// getting the labels from state
+		const labels = this.state.allItens.map(item=> item.name)
+		console.log(labels);
+
+		// concat oldlabes with new labels
+		const oldLabels = this.state.chartData.labels 
+		const allLabels = oldLabels.concat(labels)
+
+		//making a copy of chartData
+		const newChartData = this.state.chartData 
+
+		newChartData.labels = allLabels
+
+
+		const value = this.state.allItens.map(item=> item.value)
+		console.log(value);
+
+		const oldValue = this.state.chartData.datasets[0].data
+		const allValues = oldValue.concat(value)
+
+		newChartData.datasets[0].data = allValues
+
+		console.log('get labes in MainComponent');
+		console.log(newChartData);
+		this.setState({
+			chartData: newChartData
+		})
 	}
 	componentDidMount(){
 		this.getitens()
+		// this.getLabels()
 	}
 	hideChart = (e)=>{
 		e.preventDefault()
@@ -43,9 +86,9 @@ class MainComponent extends React.Component {
    			this.getitens()
 
    			// this causes infinite update
-			// this.setState({
-			// 	hideChart: false,
-			// })
+			this.setState({
+				hideChart: false,
+			})
   	  	}
   	  	catch(err){
   	  		console.log(err)
@@ -63,9 +106,37 @@ class MainComponent extends React.Component {
 
    			console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
 
+   			console.log("G I");
+			// getting the labels from state
+			const labels = parsedResponse.map(item=> item.name)
+			console.log(labels);
+
+			// concat oldlabes with new labels
+			// const oldLabels = this.state.chartData.labels 
+			// const allLabels = oldLabels.concat(labels)
+
+			//making a copy of chartData
+			const newChartData = this.state.chartData 
+
+			newChartData.labels = labels
+
+
+			const values = parsedResponse.map(item=> item.value)
+			console.log(values);
+
+			// const oldValue = this.state.chartData.datasets[0].data
+			// const allValues = oldValue.concat(value)
+
+			newChartData.datasets[0].data = values
+
+			console.log('get labes in MainComponent');
+			console.log(newChartData);
+
+
 			this.setState({
 				hideChart: false,
-				allItens: parsedResponse
+				allItens: parsedResponse,
+				chartData: newChartData
 			})
   	  	}
   	  	catch(err){
@@ -73,7 +144,7 @@ class MainComponent extends React.Component {
   	  	}
   	}
   	render() {
-    		// console.log(this.state.allItens,'this.state.allItens inside the render of MainComponent ');
+    		console.log(this.state,'this.state inside the render of MainComponent ');
     	return (
       		<div className="MainComponent">
 		    <h4>MainComponent HERE!!!</h4>
@@ -81,7 +152,7 @@ class MainComponent extends React.Component {
 			        
 			        <ItemComponent hideChart={this.hideChart} allItens={this.state.allItens}/>
 				    
-				    {this.state.hideChart?<NewItemForm createItens={this.createItens}/>:<ChartComponent allItens={this.state.allItens}/>}
+				    {this.state.hideChart?<NewItemForm createItens={this.createItens}/>:<ChartComponent allItens={this.state.allItens} chartData={this.state.chartData}/>}
 
 				    <div className="menuComponent">
 				        <p>menuComponent</p>
