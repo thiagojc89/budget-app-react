@@ -13,49 +13,69 @@ class MainComponent extends React.Component {
 	    	itens:[],
 	    	allItens:[],
 	    	hideChart: false,
-	    	chartData:{
-				labels: [],
-				datasets:[{
-					label: 'COLOR', 
-					data:[],
-					backgroundColor: [
-						'red',
-						'green',
-						'blue'
-					]
-				}]
-			}
+	    	chartLineData:{},
+	    	chartBarData:{}
 	    }
 	}
-	getLabels = ()=>{
-		console.log("G I");
-		// getting the labels from state
-		const labels = this.state.allItens.map(item=> item.name)
+	formatBarChart = (allItens)=>{
+		
+		const chartBarData = {
+			labels: [],
+			datasets:[{
+				label: 'COLOR', 
+				data:[],
+				backgroundColor: [
+					'red',
+					'green',
+					'blue'
+				]
+			}]
+		}
+
+		// getting the labels from allItens argument
+		const labels = allItens.map(item=> item.name)
 		console.log(labels);
 
-		// concat oldlabes with new labels
-		const oldLabels = this.state.chartData.labels 
-		const allLabels = oldLabels.concat(labels)
+		// getting the value from allItens argument
+		const values = allItens.map(item=> item.value)
+		console.log(values);
 
-		//making a copy of chartData
-		const newChartData = this.state.chartData 
-
-		newChartData.labels = allLabels
+		chartBarData.labels = labels
+		chartBarData.datasets[0].data = values
 
 
-		const value = this.state.allItens.map(item=> item.value)
-		console.log(value);
+		return chartBarData
 
-		const oldValue = this.state.chartData.datasets[0].data
-		const allValues = oldValue.concat(value)
+	}
+	formatLineChart = (allItens)=>{
+		
+		const chartLineData = {
+			labels: [],
+			datasets:[{
+				label: 'COLOR', 
+				data:[],
+				backgroundColor: [
+					'red',
+					'green',
+					'blue'
+				]
+			}]
+		}
 
-		newChartData.datasets[0].data = allValues
+		// getting the labels from allItens argument
+		const labels = allItens.map(item=> item.name)
+		console.log(labels);
 
-		console.log('get labes in MainComponent');
-		console.log(newChartData);
-		this.setState({
-			chartData: newChartData
-		})
+		// getting the value from allItens argument
+		const values = allItens.map(item=> item.value)
+		console.log(values);
+
+		chartLineData.labels = labels
+		chartLineData.datasets[0].data = values
+
+
+		return chartLineData
+
 	}
 	componentDidMount(){
 		this.getitens()
@@ -106,37 +126,15 @@ class MainComponent extends React.Component {
 
    			console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
 
-   			console.log("G I");
-			// getting the labels from state
-			const labels = parsedResponse.map(item=> item.name)
-			console.log(labels);
-
-			// concat oldlabes with new labels
-			// const oldLabels = this.state.chartData.labels 
-			// const allLabels = oldLabels.concat(labels)
-
-			//making a copy of chartData
-			const newChartData = this.state.chartData 
-
-			newChartData.labels = labels
-
-
-			const values = parsedResponse.map(item=> item.value)
-			console.log(values);
-
-			// const oldValue = this.state.chartData.datasets[0].data
-			// const allValues = oldValue.concat(value)
-
-			newChartData.datasets[0].data = values
-
-			console.log('get labes in MainComponent');
-			console.log(newChartData);
+   			const chartBarData =  this.formatBarChart(parsedResponse)
+   			const chartLineData =  this.formatLineChart(parsedResponse)
 
 
 			this.setState({
 				hideChart: false,
 				allItens: parsedResponse,
-				chartData: newChartData
+				chartBarData: chartBarData,
+				chartLineData: chartLineData
 			})
   	  	}
   	  	catch(err){
@@ -152,7 +150,12 @@ class MainComponent extends React.Component {
 			        
 			        <ItemComponent hideChart={this.hideChart} allItens={this.state.allItens}/>
 				    
-				    {this.state.hideChart?<NewItemForm createItens={this.createItens}/>:<ChartComponent allItens={this.state.allItens} chartData={this.state.chartData}/>}
+				    {this.state.hideChart?
+				    	<NewItemForm createItens={this.createItens}/>
+				    	:
+				    	<ChartComponent allItens={this.state.allItens} 
+				    					chartBarData={this.state.chartBarData}
+				    					chartLineData={this.state.chartLineData}/>}
 
 				    <div className="menuComponent">
 				        <p>menuComponent</p>
