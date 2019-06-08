@@ -9,12 +9,20 @@ class ChartComponent extends React.Component {
 		super(props)
 
 	}
+	handleClick(e){
+		e.preventDefault()
+		console.log('click');
+	}
+				// <h1 onClick={this.handleClick}>
+	   //  	  		Click me
+	   //  		</h1>
 	render() {
 		console.log("RENDERING")
 		console.log("chart props:");
 		console.log(this.props);
 		return(
 		    <div className="chartComponent">
+				
 		    	
 		    	<p>chartComponent</p>
 		       	
@@ -31,8 +39,8 @@ class ChartComponent extends React.Component {
                 		scales: {
                     		yAxes: [{
                         		ticks: {
-                            		beginAtZero:true,
-                            		stepSize: 100
+                            		beginAtZero:false,
+                            		stepSize: 5
                         			}
                     			}]
                 			}

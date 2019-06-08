@@ -52,26 +52,44 @@ class MainComponent extends React.Component {
 		const chartLineData = {
 			labels: [],
 			datasets:[{
-				label: 'COLOR', 
+				label: 'COLOR',
+				fill:true,
+				lineTension: 0.1,
+		      	backgroundColor: 'rgba(75,192,192,0.4)',
+		      	borderColor: 'rgba(75,192,192,1)',
+		      	borderCapStyle: 'butt',
+		      	borderDash: [],
+		      	borderDashOffset: 0.0,
+		      	borderJoinStyle: 'miter',
+		      	pointBorderColor: 'rgba(75,192,192,1)',
+		      	pointBackgroundColor: '#fff',
+		      	pointBorderWidth: 5,
+		      	pointHoverRadius: 10,
+		      	pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+		      	pointHoverBorderColor: 'rgba(220,220,220,1)',
+		      	pointHoverBorderWidth: 2,
+		      	// pointRadius: 1,
+		      	pointHitRadius: 10,
 				data:[],
-				backgroundColor: [
-					'red',
-					'green',
-					'blue'
-				]
-			}]
+			},{
+				label: 'COLOR',
+				fill:true,
+				data:[],
+			}
+			]
 		}
 
 		// getting the labels from allItens argument
-		const labels = allItens.map(item=> item.name)
-		console.log(labels);
+		const paymentDates = allItens.map(item=> item.payment_date)
+		console.log(paymentDates);
 
 		// getting the value from allItens argument
 		const values = allItens.map(item=> item.value)
 		console.log(values);
 
-		chartLineData.labels = labels
-		chartLineData.datasets[0].data = values
+		chartLineData.labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+		chartLineData.datasets[0].data = [65, 59, 80, 81, 56, 55, 40]
+		chartLineData.datasets[1].data = [60, 50, 90, 71, 50, 55, 45]
 
 
 		return chartLineData
@@ -105,7 +123,6 @@ class MainComponent extends React.Component {
    			console.log('this is my new item >>>> ',parsedResponse);
    			this.getitens()
 
-   			// this causes infinite update
 			this.setState({
 				hideChart: false,
 			})
