@@ -47,49 +47,86 @@ class MainComponent extends React.Component {
 		return chartBarData
 
 	}
+	fibArray = (arr)=>{
+		// this function gets an array of number as argument and return an array with the fibonacci for every number in the array using the sequence of the array 
+		//  for example if we send a array [9,8,7,6] it will return [9, 17, 24, 30]
+
+		const newArray = arr
+		arr.forEach((num, index)=>{
+
+			if (index === 0){
+				newArray.splice(index,1,parseInt(num))
+			}
+			else{
+				newArray.splice(index,1,parseInt(num)+parseInt(arr[index-1]))
+			}
+
+		})
+
+		return newArray
+	}
 	formatLineChart = (allItens)=>{
 		
 		const chartLineData = {
 			labels: [],
-			datasets:[{
-				label: 'COLOR',
-				fill:true,
-				lineTension: 0.1,
-		      	backgroundColor: 'rgba(75,192,192,0.4)',
-		      	borderColor: 'rgba(75,192,192,1)',
-		      	borderCapStyle: 'butt',
-		      	borderDash: [],
-		      	borderDashOffset: 0.0,
-		      	borderJoinStyle: 'miter',
-		      	pointBorderColor: 'rgba(75,192,192,1)',
-		      	pointBackgroundColor: '#fff',
-		      	pointBorderWidth: 5,
-		      	pointHoverRadius: 10,
-		      	pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-		      	pointHoverBorderColor: 'rgba(220,220,220,1)',
-		      	pointHoverBorderWidth: 2,
-		      	// pointRadius: 1,
-		      	pointHitRadius: 10,
-				data:[],
-			},{
-				label: 'COLOR',
-				fill:true,
-				data:[],
-			}
-			]
+			datasets:[]
 		}
 
+		class DatasetsTemplate{
+			constructor(datasets){
+			}
+			datasets =
+			{
+		      // label: 'My First dataset',
+		      fill: false,
+		      lineTension: .4,
+		      borderColor: 'rgba(75,92,92,1)',
+		      pointBorderWidth: 10,
+		      pointHoverRadius: 10,
+		      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+		      pointRadius: 2,
+		      pointHitRadius: 10,
+		      data: null
+			}
+
+		}
+
+		const allExpenses = allItens.filter(item=> item.transaction==="expense")
+
 		// getting the labels from allItens argument
-		const paymentDates = allItens.map(item=> item.payment_date)
-		console.log(paymentDates);
-
+		const expensesDates = allExpenses.map(expense=> expense.payment_date)
+		chartLineData.labels = chartLineData.labels.concat(expensesDates)
+		
 		// getting the value from allItens argument
-		const values = allItens.map(item=> item.value)
-		console.log(values);
+		const expensesValues = allExpenses.map(expense=> expense.value)
 
-		chartLineData.labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-		chartLineData.datasets[0].data = [65, 59, 80, 81, 56, 55, 40]
-		chartLineData.datasets[1].data = [60, 50, 90, 71, 50, 55, 45]
+		const expenses = new DatasetsTemplate()
+		expenses.datasets.data = this.fibArray(expensesValues)
+		
+		chartLineData.datasets.push(expenses.datasets)
+
+		// console.log('chartLineData.datasets after push expenses');
+		// console.log(chartLineData.datasets);
+
+
+		const allDeposits = allItens.filter(item=> item.transaction==="deposit")
+		const depositsDates = allDeposits.map(deposit=> deposit.payment_date)
+		chartLineData.labels = chartLineData.labels.concat(depositsDates)
+
+		const depositsValues = allDeposits.map(deposit=> deposit.value)
+
+		const deposits = new DatasetsTemplate()
+
+		
+
+
+		deposits.datasets.data = this.fibArray(depositsValues)
+		
+		
+		chartLineData.datasets.push(deposits.datasets)
+
+		console.log('chartLineData.datasets after push deposits');
+		console.log(chartLineData.datasets);		
 
 
 		return chartLineData
@@ -159,7 +196,7 @@ class MainComponent extends React.Component {
   	  	}
   	}
   	render() {
-    		console.log(this.state,'this.state inside the render of MainComponent ');
+    		
     	return (
       		<div className="MainComponent">
 		    <h4>MainComponent HERE!!!</h4>
