@@ -105,6 +105,7 @@ class MainComponent extends React.Component {
 		      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
 		      pointRadius: 2,
 		      pointHitRadius: 10,
+		      steppedLine: false,
 		      data: []
 			}
 
@@ -116,6 +117,7 @@ class MainComponent extends React.Component {
 		deposits.datasets.borderColor = 'rgba(0,0,225,.7)'
 		const balance = new DatasetsTemplate()
 		balance.datasets.borderColor = 'rgba(0,225,0,.7)'
+		balance.datasets.steppedLine = true
 
 		allItens.forEach((item, i)=>{
 			chartLineData.labels.push(item.payment_date)
