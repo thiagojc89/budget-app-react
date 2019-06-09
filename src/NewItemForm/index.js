@@ -43,7 +43,7 @@ class NewItemForm extends React.Component {
 			            	Value: <input type='number' name="value" onChange={this.handleChange}/>
 			            </div>
 			            <div>
-			            	Payment Date: <input type='date' name="payment_date" onChange={this.handleChange}/>
+			            	Date: <input type='date' name="payment_date" onChange={this.handleChange}/>
 			            </div>
 
 			            <button type="Submit">Create Item</button>

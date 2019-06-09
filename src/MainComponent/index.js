@@ -14,7 +14,9 @@ class MainComponent extends React.Component {
 	    	allItens:[],
 	    	hideChart: false,
 	    	chartLineData:{},
-	    	chartBarData:{}
+	    	chartBarData:{},
+	    	totalBalance: 0,
+			totalExpense: 0
 	    }
 	}
 	formatBarChart = (allItens)=>{
@@ -33,11 +35,13 @@ class MainComponent extends React.Component {
 		}
 
 		// getting the labels from allItens argument
-		const labels = allItens.map(item=> item.name)
+
+		const allExpenses = allItens.filter(item=> item.transaction==="expense")
+		const labels = allExpenses.map(item=> item.name)
 		console.log(labels);
 
 		// getting the value from allItens argument
-		const values = allItens.map(item=> item.value)
+		const values = allExpenses.map(item=> item.value)
 		console.log(values);
 
 		chartBarData.labels = labels
@@ -106,18 +110,29 @@ class MainComponent extends React.Component {
 		      pointRadius: 2,
 		      pointHitRadius: 10,
 		      steppedLine: false,
+		      label:null,
 		      data: []
+
 			}
 
 		}
+		let totalBalance = 0
+		let totalExpense = 0
 
 		const expenses = new DatasetsTemplate()
 		expenses.datasets.borderColor = 'rgba(225,0,0,.7)'
+		expenses.datasets.steppedLine = true
+		expenses.datasets.label = 'expense'
+		
 		const deposits = new DatasetsTemplate()
 		deposits.datasets.borderColor = 'rgba(0,0,225,.7)'
+		deposits.datasets.steppedLine = true
+		deposits.datasets.label = 'deposits'
+
 		const balance = new DatasetsTemplate()
 		balance.datasets.borderColor = 'rgba(0,225,0,.7)'
 		balance.datasets.steppedLine = true
+		balance.datasets.label = 'balance'
 
 		allItens.forEach((item, i)=>{
 			chartLineData.labels.push(item.payment_date)
@@ -131,73 +146,47 @@ class MainComponent extends React.Component {
 					deposits.datasets.data.push(0)	
 					expenses.datasets.data.push(parseInt(item.value))
 					balance.datasets.data.push(parseInt(item.value))
+					totalExpense = parseInt(item.value)
 				}
 				else{
 					expenses.datasets.data.push(parseInt(item.value) + expenses.datasets.data[i-1])
 					deposits.datasets.data.push(deposits.datasets.data[i-1])
 					balance.datasets.data.push(balance.datasets.data[i-1] - parseInt(item.value))
+					totalExpense = parseInt(item.value) + expenses.datasets.data[i-1]
 				}
 			
 			}
 			if (item.transaction==='deposit') {
-				// deposits.labels.push(item.payment_date)
 
 				if (i === 0 ){
 					expenses.datasets.data.push(0)		
 					deposits.datasets.data.push(parseInt(item.value))
 					balance.datasets.data.push(parseInt(item.value))
+					totalBalance = parseInt(item.value)
 				}
 				else{
 					deposits.datasets.data.push(parseInt(item.value) + deposits.datasets.data[i-1])
 					expenses.datasets.data.push(expenses.datasets.data[i-1])
 					balance.datasets.data.push(balance.datasets.data[i-1] + parseInt(item.value))
+					totalBalance = parseInt(item.value) + deposits.datasets.data[i-1]
 				}
 			}
 		})
-		console.log('expenses');
-		console.log(expenses);
-		console.log('deposits');
-		console.log(deposits);
-		// expenses.datasets.data = this.fibArray(expenses.datasets.data)
-		// deposits.datasets.data = this.fibArray(deposits.datasets.data)
-
-		// chartLineData.labels.push(expenses.labels)
 		chartLineData.datasets.push(expenses.datasets)
-		// chartLineData.labels.push(deposits.labels)
 		chartLineData.datasets.push(deposits.datasets)
 		chartLineData.datasets.push(balance.datasets)
 
 		console.log('chartLineData.datasets after push deposits');
 		console.log(chartLineData.datasets);		
 
+		totalBalance = totalBalance - totalExpense
 
-		return chartLineData
+		return [chartLineData , totalBalance, totalExpense]
 
-
-		// const allExpenses = allItens.filter(item=> item.transaction==="expense")
-
-		// getting the labels from allItens argument
-		// const expensesDates = allExpenses.map(expense=> expense.payment_date)
-
-		// chartLineData.labels = chartLineData.labels.concat(expensesDates)
-		
-		// getting the value from allItens argument
-		// const expensesValues = allExpenses.map(expense=> expense.value)
-
-		// console.log('chartLineData.datasets after push expenses');
-		// console.log(chartLineData.datasets);
-
-
-		// const allDeposits = allItens.filter(item=> item.transaction==="deposit")
-		// const depositsDates = allDeposits.map(deposit=> deposit.payment_date)
-		
-		// chartLineData.labels = chartLineData.labels.concat(depositsDates)
-
-		// const depositsValues = allDeposits.map(deposit=> deposit.value)
 	}
 	componentDidMount(){
 		this.getitens()
-		// this.getLabels()
+		
 	}
 	hideChart = (e)=>{
 		e.preventDefault()
@@ -223,15 +212,12 @@ class MainComponent extends React.Component {
    			console.log('this is my new item >>>> ',parsedResponse);
    			this.getitens()
 
-			this.setState({
-				hideChart: false,
-			})
   	  	}
   	  	catch(err){
   	  		console.log(err)
   	  	}
   	}
-  	getitens = async (item)=> {
+  	getitens = async ()=> {
 
 
   	  	try{
@@ -244,15 +230,60 @@ class MainComponent extends React.Component {
    			console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
 
    			const chartBarData =  this.formatBarChart(parsedResponse)
-   			const chartLineData =  this.formatLineChart(parsedResponse)
+
+   			const [chartLineData,totalBalance,totalExpense] =  this.formatLineChart(parsedResponse)
+
+   			console.log('this is the TOTAL >>>> ',totalBalance, totalExpense);
 
 
 			this.setState({
 				hideChart: false,
 				allItens: parsedResponse,
 				chartBarData: chartBarData,
-				chartLineData: chartLineData
+				chartLineData: chartLineData,
+				totalBalance: totalBalance, 
+				totalExpense: totalExpense
 			})
+  	  	}
+  	  	catch(err){
+  	  		console.log(err)
+  	  	}
+  	}
+  	deleteItens = async (item,e)=> {
+  		e.preventDefault()
+  	  	try{
+  	  		const deleteItens = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem?item_id='+item, {
+  	  			method: 'DELETE',
+			    credentials: 'include'
+			});
+
+   			const parsedResponse = await deleteItens.json();
+
+   			console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
+
+   			this.getitens()
+
+
+  	  	}
+  	  	catch(err){
+  	  		console.log(err)
+  	  	}
+  	}
+  	editItens = async (item,e)=> {
+  		e.preventDefault()
+  	  	try{
+  	  		const deleteItens = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem?item_id='+item, {
+  	  			method: 'DELETE',
+			    credentials: 'include'
+			});
+
+   			const parsedResponse = await deleteItens.json();
+
+   			console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
+
+   			this.getitens()
+
+
   	  	}
   	  	catch(err){
   	  		console.log(err)
@@ -265,7 +296,12 @@ class MainComponent extends React.Component {
 		    <h4>MainComponent HERE!!!</h4>
 		      	<div className="main-container">
 			        
-			        <ItemComponent hideChart={this.hideChart} allItens={this.state.allItens}/>
+			        <ItemComponent hideChart={this.hideChart} 
+			        			   allItens={this.state.allItens} 
+			        			   deleteItens={this.deleteItens}
+			        			   editItens={this.editItens}
+			        			   totalExpense={this.state.totalExpense}
+			        			   totalBalance={this.state.totalBalance}/>
 				    
 				    {this.state.hideChart?
 				    	<NewItemForm createItens={this.createItens}/>
@@ -274,12 +310,12 @@ class MainComponent extends React.Component {
 				    					chartBarData={this.state.chartBarData}
 				    					chartLineData={this.state.chartLineData}/>}
 
-				    <div className="menuComponent">
-				        <p>menuComponent</p>
-			        </div>
 		      	</div>
       		</div>
     	);
   	}
 }
 export default MainComponent;
+				    // <div className="menuComponent">
+				    //     <p>menuComponent</p>
+			     //    </div>
