@@ -65,6 +65,24 @@ class MainComponent extends React.Component {
 
 		return newArray
 	}
+	fibBalance = (arr)=>{
+		// this function gets an array of number as argument and return an array with the fibonacci for every number in the array using the sequence of the array 
+		//  for example if we send a array [9,8,7,6] it will return [9, 17, 24, 30]
+
+		const newArray = arr
+		arr.forEach((num, index)=>{
+
+			if (index === 0){
+				newArray.splice(index,1,parseInt(num))
+			}
+			else{
+				newArray.splice(index,1,parseInt(num)+parseInt(arr[index-1]))
+			}
+
+		})
+
+		return newArray
+	}
 	formatLineChart = (allItens)=>{
 		
 		const chartLineData = {
@@ -75,6 +93,7 @@ class MainComponent extends React.Component {
 		class DatasetsTemplate{
 			constructor(datasets){
 			}
+			labels = []
 			datasets =
 			{
 		      // label: 'My First dataset',
@@ -86,44 +105,65 @@ class MainComponent extends React.Component {
 		      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
 		      pointRadius: 2,
 		      pointHitRadius: 10,
-		      data: null
+		      data: []
 			}
 
 		}
 
-		const allExpenses = allItens.filter(item=> item.transaction==="expense")
-
-		// getting the labels from allItens argument
-		const expensesDates = allExpenses.map(expense=> expense.payment_date)
-		chartLineData.labels = chartLineData.labels.concat(expensesDates)
-		
-		// getting the value from allItens argument
-		const expensesValues = allExpenses.map(expense=> expense.value)
-
 		const expenses = new DatasetsTemplate()
-		expenses.datasets.data = this.fibArray(expensesValues)
-		
-		chartLineData.datasets.push(expenses.datasets)
-
-		// console.log('chartLineData.datasets after push expenses');
-		// console.log(chartLineData.datasets);
-
-
-		const allDeposits = allItens.filter(item=> item.transaction==="deposit")
-		const depositsDates = allDeposits.map(deposit=> deposit.payment_date)
-		chartLineData.labels = chartLineData.labels.concat(depositsDates)
-
-		const depositsValues = allDeposits.map(deposit=> deposit.value)
-
+		expenses.datasets.borderColor = 'rgba(225,0,0,.7)'
 		const deposits = new DatasetsTemplate()
+		deposits.datasets.borderColor = 'rgba(0,0,225,.7)'
+		const balance = new DatasetsTemplate()
+		balance.datasets.borderColor = 'rgba(0,225,0,.7)'
 
-		
+		allItens.forEach((item, i)=>{
+			chartLineData.labels.push(item.payment_date)
+			
+			console.log(item.transaction);
+			
+			if (item.transaction==='expense'){
+				
+				if (i === 0){
+					
+					deposits.datasets.data.push(0)	
+					expenses.datasets.data.push(parseInt(item.value))
+					balance.datasets.data.push(parseInt(item.value))
+				}
+				else{
+					expenses.datasets.data.push(parseInt(item.value) + expenses.datasets.data[i-1])
+					deposits.datasets.data.push(deposits.datasets.data[i-1])
+					balance.datasets.data.push(balance.datasets.data[i-1] - parseInt(item.value))
+				}
+			
+			}
+			if (item.transaction==='deposit') {
+				// deposits.labels.push(item.payment_date)
 
+				if (i === 0 ){
+					expenses.datasets.data.push(0)		
+					deposits.datasets.data.push(parseInt(item.value))
+					balance.datasets.data.push(parseInt(item.value))
+				}
+				else{
+					deposits.datasets.data.push(parseInt(item.value) + deposits.datasets.data[i-1])
+					expenses.datasets.data.push(expenses.datasets.data[i-1])
+					balance.datasets.data.push(balance.datasets.data[i-1] + parseInt(item.value))
+				}
+			}
+		})
+		console.log('expenses');
+		console.log(expenses);
+		console.log('deposits');
+		console.log(deposits);
+		// expenses.datasets.data = this.fibArray(expenses.datasets.data)
+		// deposits.datasets.data = this.fibArray(deposits.datasets.data)
 
-		deposits.datasets.data = this.fibArray(depositsValues)
-		
-		
+		// chartLineData.labels.push(expenses.labels)
+		chartLineData.datasets.push(expenses.datasets)
+		// chartLineData.labels.push(deposits.labels)
 		chartLineData.datasets.push(deposits.datasets)
+		chartLineData.datasets.push(balance.datasets)
 
 		console.log('chartLineData.datasets after push deposits');
 		console.log(chartLineData.datasets);		
@@ -131,6 +171,27 @@ class MainComponent extends React.Component {
 
 		return chartLineData
 
+
+		// const allExpenses = allItens.filter(item=> item.transaction==="expense")
+
+		// getting the labels from allItens argument
+		// const expensesDates = allExpenses.map(expense=> expense.payment_date)
+
+		// chartLineData.labels = chartLineData.labels.concat(expensesDates)
+		
+		// getting the value from allItens argument
+		// const expensesValues = allExpenses.map(expense=> expense.value)
+
+		// console.log('chartLineData.datasets after push expenses');
+		// console.log(chartLineData.datasets);
+
+
+		// const allDeposits = allItens.filter(item=> item.transaction==="deposit")
+		// const depositsDates = allDeposits.map(deposit=> deposit.payment_date)
+		
+		// chartLineData.labels = chartLineData.labels.concat(depositsDates)
+
+		// const depositsValues = allDeposits.map(deposit=> deposit.value)
 	}
 	componentDidMount(){
 		this.getitens()

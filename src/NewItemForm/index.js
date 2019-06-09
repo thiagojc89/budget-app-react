@@ -7,7 +7,7 @@ class NewItemForm extends React.Component {
 		this.state={
 			name: null,
 			value: null,
-			due_date: null,
+			due_date: '2019-06-09',
 			payment_date: null,
 			transaction: null
 		}
@@ -43,9 +43,6 @@ class NewItemForm extends React.Component {
 			            	Value: <input type='number' name="value" onChange={this.handleChange}/>
 			            </div>
 			            <div>
-			            	Due Date: <input type='date' name="due_date" onChange={this.handleChange}/>
-			            </div>
-			            <div>
 			            	Payment Date: <input type='date' name="payment_date" onChange={this.handleChange}/>
 			            </div>
 
@@ -64,7 +61,7 @@ class NewItemForm extends React.Component {
 			            	Value: <input type='number' name="value" onChange={this.handleChange}/>
 			            </div>
 			            <div>
-			            	Date: <input type='date' name="due_date" onChange={this.handleChange}/>
+			            	Date: <input type='date' name="payment_date" onChange={this.handleChange}/>
 			            </div>
 
 			            <button type="Submit">Create Item</button>

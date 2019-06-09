@@ -24,7 +24,7 @@ code {
 .main-container{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: 5px;
   padding: 20px;
   border: 10px solid red;
