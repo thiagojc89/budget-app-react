@@ -7,10 +7,7 @@ class Header extends React.Component {
     super();
 
     this.state = {
-      email: '',
-      password: '',
       first_name: '',
-      last_name:'',
       logged: false
     }
   }
@@ -32,11 +29,22 @@ class Header extends React.Component {
     });
 
     const parsedResponse = await loginResponse.json();
+
+
+
     console.log(parsedResponse);
+    if (parsedResponse.id){
 
-    // this.props.appLogin()
+      this.props.appLogin({
+        first_name: parsedResponse.first_name,
+        logged: true
+      })
+      this.setState({logged:true})
+    }
+    else{
+      alert('USER OR PASSWORD INVALID!!!')
+    }
 
-    this.props.history.push("/mainpage");
 
   }
 
@@ -53,8 +61,7 @@ class Header extends React.Component {
     });
 
     const parsedResponse = await registerResponse.json();
-    console.log(parsedResponse);
-    this.props.history.push("/mainpage");
+
   }
   regOrLog = (e)=>{
     e.preventDefault()
@@ -65,49 +72,43 @@ class Header extends React.Component {
       this.setState({logged:true})
     }
   }
+  logOut(e){
+    e.preventDefault()
+    console.log('LOGOFFFFFFFF');
+  }
           
   render() {
-
-    // console.log("header props")
-    // console.log(this.props)
-    // this.props.history.push("/mainpage");
     return (
       <div className="header">
-        <h4>HEADER HERE!!!</h4>
+        
+        <div id='nav'>
+        <p id='logo'><strong>Money Chart</strong></p>
+        
         {
         	!this.state.logged ?
-		        <Form onSubmit={this.handleLogin}>
-		            <h1>Login</h1>
-		            <Label> Email</Label>
-		            <Form.Input type='email' name="email" onChange={this.handleChange} />
-		            <Label> Password</Label>
-		            <Form.Input type='password' name="password" onChange={this.handleChange} />
-		            <Button type="Submit" color="green">Login</Button>
-		            <h3>Don't Have an Acount?</h3>
-		            <input type="Submit" color="green" value='Register' onClick={this.regOrLog} readOnly/>
-		        </Form>
+            <div>
+  		        <Form onSubmit={this.handleLogin}>
+  		            <Label> Email</Label>
+  		            <Form.Input type='email' name="email" onChange={this.handleChange} />
+  		            <Label> Password</Label>
+  		            <Form.Input type='password' name="password" onChange={this.handleChange} />
+  		            <Button type="Submit" color="green">Login</Button>
+  		        </Form>
+  		        <p id='register'><small>Don't Have an Acount?</small>
+  		          <input type="Submit" value='Register' onClick={this.regOrLog} readOnly/>
+              </p>
+            </div>
 		        :
-		        <Form onSubmit={this.handleRegister}>
-		            <h1>Register</h1>
-		            <Label> First Name</Label>
-		            <Form.Input type='text' name="first_name" onChange={this.handleChange} />
-		            <Label> Last Name</Label>
-		            <Form.Input type='text' name="last_name" onChange={this.handleChange} />
-		            <Label> Email</Label>
-		            <Form.Input type='email' name="email" onChange={this.handleChange} />
-		            <Label> Password</Label>
-		            <Form.Input type='password' name="password" onChange={this.handleChange} />
-		            <Button type="Submit" color="green">Register</Button>
-		            <h3>Already Have an Acount?</h3>
-		            <input type="Submit" color="green" value='Login' onClick={this.regOrLog}readOnly/>
-		        </Form>
-		        
+                <h2 id='logout'>Hello {this.props.first_name}
+                  <button className='btn logout' onClick={this.logOut}> (Log-Out)</button>
+                </h2>
       	}
+          </div>
+		        
       </div>
     );
   }
 }
 export default Header;
-
 
 

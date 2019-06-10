@@ -4,47 +4,53 @@ import Collapsible from 'react-collapsible';
 							  
 
 
-class ChartComponent extends React.Component {
-	constructor(props){
-		super(props)
+const ChartComponent =(props)=> {
+	return(
+	    <div className="chartComponent">
 
-	}
-	render() {
-		console.log("chart props:");
-		console.log(this.props);
-		return(
-		    <div className="chartComponent">
-				
-		       	
-		       	<Collapsible trigger={<h2>Line Chart</h2>}>
+			
+	       	<div className='chartContent'>
 
-			        <Line
-			        	data={this.props.chartLineData}
-			        	width={900}
-	  					height={350}
-			        	options={{
-			        		legend: {
-	                    	    display: true,
-	                        	fontColor: 'green'
-	                			},
-	                		responsive: true,
-	                		maintainAspectRatio: true,
-	                		scales: {
-	                    		yAxes: [{
-	                        		ticks: {
-	                            		beginAtZero:true,
-	                            		stepSize: 100
-	                        			}
-	                    			}]
-	                			}
-	                		}
-	                	}
+	       	<Collapsible trigger={<h2>Line Chart ▼</h2>}
+	       				 transitionTime={1000} 
+	       				 triggerWhenOpen={<h2>Line Chart ▲</h2>}
+	       				 open={true}
+	       				 triggerStyle={{background: '#2196f3'}}
+	       				 >
 
-			        />
-			    </Collapsible>
-		        <Collapsible trigger={<h2>Bar Chart</h2>}>
+		        <Line 
+		        	data={props.chartLineData}
+		        	width={900}
+  					height={350}
+		        	options={{
+		        		legend: {
+                    	    display: true,
+                        	fontColor: 'green'
+                			},
+                		responsive: true,
+                		maintainAspectRatio: true,
+                		scales: {
+                    		yAxes: [{
+                        		ticks: {
+                            		beginAtZero:true,
+                            		stepSize: 100
+                        			}
+                    			}]
+                			}
+                		}
+                	}
+
+		        />
+		    </Collapsible>
+		    </div>
+		    <div className='chartContent'>
+		        <Collapsible 
+		        			trigger={<h2>Bar Chart ▼</h2>}
+		        			transitionTime={1000} 
+		        			triggerWhenOpen={<h2>Bar Chart ▲</h2>}
+		        			>
 			        <Bar
-			        	data={this.props.chartBarData}
+			        	data={props.chartBarData}
 			        	width={900}
 	  					height={350}
 			        	options={{
@@ -67,10 +73,43 @@ class ChartComponent extends React.Component {
 
 			        />
 			    </Collapsible>
-			    
-	        </div>
-		)
-	}	
-}
+		    </div>
+		    <div className='chartContent'>
+		        <Collapsible 
+		        			trigger={<h2>Pie Chart ▼</h2>}
+		        			transitionTime={1000} 
+		        			triggerWhenOpen={<h2>Pie Chart ▲</h2>}
+		        			>
+			        <Pie
+			        	data={props.chartBarData}
+			        	width={900}
+	  					height={350}
+			        	options={{
+			        		legend: {
+	                    	    display: false,
+	                        	fontColor: 'green'
+	                			},
+	                		responsive: true,
+	                		maintainAspectRatio: true,
+	                		scales: {
+	                    		yAxes: [{
+	                        		ticks: {
+	                            		beginAtZero:true,
+	                            		stepSize: 100
+	                        			}
+	                    			}]
+	                			}
+	                		}
+	                	}
+
+			        />
+			    </Collapsible>
+		    </div>
+		    
+        </div>
+	)
+}	
+
+
 
 export default ChartComponent;

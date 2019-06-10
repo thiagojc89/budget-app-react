@@ -2,6 +2,8 @@ import React from 'react';
 import ItemComponent from '../ItemComponent'
 import ChartComponent from '../ChartComponent'
 import NewItemForm from '../NewItemForm'
+import EditItemForm from '../EditItemForm'
+import RegisterComponent from '../RegisterComponent'
 
 
 
@@ -12,12 +14,19 @@ class MainComponent extends React.Component {
 	    	budget_id:'',
 	    	itens:[],
 	    	allItens:[],
-	    	hideChart: false,
+	    	showChart: true,
+	    	showEditPage:false,
+	    	showNewItemForm: false,
+	    	showRegister: false,
 	    	chartLineData:{},
 	    	chartBarData:{},
+	    	ItemToEdit: null,
 	    	totalBalance: 0,
 			totalExpense: 0
 	    }
+	}
+	showRegister = ()=>{
+
 	}
 	formatBarChart = (allItens)=>{
 		
@@ -38,11 +47,11 @@ class MainComponent extends React.Component {
 
 		const allExpenses = allItens.filter(item=> item.transaction==="expense")
 		const labels = allExpenses.map(item=> item.name)
-		console.log(labels);
+		// console.log(labels);
 
 		// getting the value from allItens argument
 		const values = allExpenses.map(item=> item.value)
-		console.log(values);
+		// console.log(values);
 
 		chartBarData.labels = labels
 		chartBarData.datasets[0].data = values
@@ -95,8 +104,8 @@ class MainComponent extends React.Component {
 		}
 
 		class DatasetsTemplate{
-			constructor(datasets){
-			}
+			// constructor(datasets){
+			// }
 			labels = []
 			datasets =
 			{
@@ -137,7 +146,7 @@ class MainComponent extends React.Component {
 		allItens.forEach((item, i)=>{
 			chartLineData.labels.push(item.payment_date)
 			
-			console.log(item.transaction);
+			// console.log(item.transaction);
 			
 			if (item.transaction==='expense'){
 				
@@ -172,12 +181,12 @@ class MainComponent extends React.Component {
 				}
 			}
 		})
+		chartLineData.datasets.push(balance.datasets)
 		chartLineData.datasets.push(expenses.datasets)
 		chartLineData.datasets.push(deposits.datasets)
-		chartLineData.datasets.push(balance.datasets)
 
-		console.log('chartLineData.datasets after push deposits');
-		console.log(chartLineData.datasets);		
+		// console.log('chartLineData.datasets after push deposits');
+		// console.log(chartLineData.datasets);		
 
 		totalBalance = totalBalance - totalExpense
 
@@ -188,10 +197,13 @@ class MainComponent extends React.Component {
 		this.getitens()
 		
 	}
-	hideChart = (e)=>{
+	showChart = (e)=>{
 		e.preventDefault()
 		this.setState({
-			hideChart: true
+			showChart: false,
+			showEditPage: false,
+			showNewItemForm: true
+
 		})
 	}
   	createItens = async (item)=> {
@@ -207,9 +219,9 @@ class MainComponent extends React.Component {
         		}
    			});
 
-   			const parsedResponse = await newItem.json();
+   			// const parsedResponse = await newItem.json();
 
-   			console.log('this is my new item >>>> ',parsedResponse);
+   			// console.log('this is my new item >>>> ',parsedResponse);
    			this.getitens()
 
   	  	}
@@ -227,17 +239,19 @@ class MainComponent extends React.Component {
 
    			const parsedResponse = await allitens.json();
 
-   			console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
+   			// console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
 
    			const chartBarData =  this.formatBarChart(parsedResponse)
 
    			const [chartLineData,totalBalance,totalExpense] =  this.formatLineChart(parsedResponse)
 
-   			console.log('this is the TOTAL >>>> ',totalBalance, totalExpense);
+   			// console.log('this is the TOTAL >>>> ',totalBalance, totalExpense);
 
 
 			this.setState({
-				hideChart: false,
+				showChart: true,
+				showEditPage: false,
+				showNewItemForm: false,
 				allItens: parsedResponse,
 				chartBarData: chartBarData,
 				chartLineData: chartLineData,
@@ -257,9 +271,7 @@ class MainComponent extends React.Component {
 			    credentials: 'include'
 			});
 
-   			const parsedResponse = await deleteItens.json();
-
-   			console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
+   			// const parsedResponse = await deleteItens.json();
 
    			this.getitens()
 
@@ -269,12 +281,19 @@ class MainComponent extends React.Component {
   	  		console.log(err)
   	  	}
   	}
-  	editItens = async (item,e)=> {
-  		e.preventDefault()
+  	editItens = async (item)=> {
+  		// e.preventDefault()
+
+  		// console.log('this is the item I will update', item);
+
   	  	try{
-  	  		const deleteItens = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem?item_id='+item, {
-  	  			method: 'DELETE',
-			    credentials: 'include'
+  	  		const deleteItens = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem?item_id='+item.id, {
+  	  			method: 'PUT',
+			    credentials: 'include',
+			    body: JSON.stringify(item),
+			    headers: {
+	          		'Content-Type': 'application/json'
+        		}
 			});
 
    			const parsedResponse = await deleteItens.json();
@@ -289,27 +308,54 @@ class MainComponent extends React.Component {
   	  		console.log(err)
   	  	}
   	}
+  	ItemToEdit = (item,e)=>{
+  		e.preventDefault()
+
+  		// console.log('this is the item i will update', item);
+  		
+  		this.setState({
+  			showChart: false,
+  		 	showEditPage: true,
+  			ItemToEdit: item
+  		})
+  	}
   	render() {
     		
     	return (
       		<div className="MainComponent">
-		    <h4>MainComponent HERE!!!</h4>
+		    
 		      	<div className="main-container">
 			        
-			        <ItemComponent hideChart={this.hideChart} 
+			        <ItemComponent showChart={this.showChart} 
 			        			   allItens={this.state.allItens} 
 			        			   deleteItens={this.deleteItens}
-			        			   editItens={this.editItens}
+			        			   ItemToEdit={this.ItemToEdit}
 			        			   totalExpense={this.state.totalExpense}
 			        			   totalBalance={this.state.totalBalance}/>
 				    
-				    {this.state.hideChart?
+				    {this.state.showEditPage?
+				    	<EditItemForm editItem={this.editItens} ItemToEdit={this.state.ItemToEdit}/>
+				    :
+				    	null
+				    }
+				    
+				    {this.state.showNewItemForm?
 				    	<NewItemForm createItens={this.createItens}/>
 				    	:
+				    	null
+				    }
+				    {this.state.showChart?
 				    	<ChartComponent allItens={this.state.allItens} 
 				    					chartBarData={this.state.chartBarData}
-				    					chartLineData={this.state.chartLineData}/>}
-
+				    					chartLineData={this.state.chartLineData}/>
+				    	:
+				    	null
+				    }
+				    {this.state.showRegister?
+				    	<RegisterComponent/>
+				    	:
+				    	null
+				    }
 		      	</div>
       		</div>
     	);

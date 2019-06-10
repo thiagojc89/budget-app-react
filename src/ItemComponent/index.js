@@ -10,15 +10,15 @@ const ItemComponent = (props)=>{
 		itens = props.allItens.map((item, i)=>{
 			return(
 
-				<Collapsible trigger={
-					<li><strong>{item.name}</strong></li>
+				<Collapsible key={i} trigger={
+					<li ><strong>{item.name}</strong></li>
 				}>
 					
 					<p>
 						<input type='button' value='Delete' onClick={props.deleteItens.bind(null,item.id)}/>
 					</p>
 					<p>
-						<input type='button' value='Edit' onClick={props.editItens.bind(null,item)}/>
+						<input type='button' value='Edit' onClick={props.ItemToEdit.bind(null,item)}/>
 					</p>
 					
 				</Collapsible>
@@ -33,7 +33,7 @@ const ItemComponent = (props)=>{
 		    	<h3>Balance: {props.totalBalance}</h3>
 		    	<h3>Epenses: {props.totalExpense}</h3>
 		    	  
-		        <form onSubmit={props.hideChart}>
+		        <form onSubmit={props.showChart}>
 		        	<button>New Item</button>
 		        </form>
 		        

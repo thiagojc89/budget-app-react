@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
 import Header from './Header';
+import HomePage from './HomePage';
 import MainComponent from './MainComponent';
-import { Route, Switch } from 'react-router-dom';
+// import { Route, Switch } from 'react-router-dom';
 
 
 class App extends React.Component {
@@ -19,13 +20,8 @@ class App extends React.Component {
       logged: false
     }
   }
-  getUser = async () =>{
-    // maybe this is necessary 
-    // make a call to b/e and get up to date user info and store it in state at APP LEVEL 
-  }
-
   appLogin = (userData) => {
-    console.log("app login fired")
+    
     // set state at app level based on a parameter 
     this.setState({
       email:userData.email,
@@ -34,18 +30,26 @@ class App extends React.Component {
       logged:userData.logged
     })
   } 
-
   render() {
-    return (
-      <div className="App">
-        <Switch>
-          <Route exact path="/" render={ (props) => <Header {...props} 
-                 appLogin={this.appLogin} /> }/>
-          <Route exact path="/mainpage" component={MainComponent}/>
+      return (
+        <div className="App">
+          
+            <Header appLogin={this.appLogin} first_name={this.state.first_name} /> 
 
-        </Switch>
-      </div>
-    );
+            {this.state.logged?
+              <MainComponent/>
+            :
+              <HomePage/>
+            }
+
+          
+        </div>
+      );
+    }
   }
-}
+
+
 export default App;
+
+
+
