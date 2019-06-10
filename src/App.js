@@ -20,6 +20,28 @@ class App extends React.Component {
       logged: false
     }
   }
+  componentDidMount(){
+    this.getUser()
+  }
+  getUser = async ()=>{
+    const loginResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/auth/login', {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    const parsedResponse = await loginResponse.json();
+
+    console.log(parsedResponse);
+
+    if (parsedResponse[0]==='true'){
+
+      this.setState({
+        first_name: parsedResponse[1].first_name,
+        logged: true
+      })
+
+    }
+  }
   appLogin = (userData) => {
     
     // set state at app level based on a parameter 
@@ -29,20 +51,29 @@ class App extends React.Component {
       last_name:userData.last_name,
       logged:userData.logged
     })
-  } 
+  }
+  logOut = ()=>{
+      this.setState({
+        email:null,
+        first_name:null,
+        last_name:null,
+        logged:null
+    })
+  }
   render() {
       return (
         <div className="App">
           
-            <Header appLogin={this.appLogin} first_name={this.state.first_name} /> 
+            <Header appLogin={this.appLogin} 
+                    first_name={this.state.first_name} 
+                    logged={this.state.logged}
+                    logOut={this.logOut} /> 
 
             {this.state.logged?
               <MainComponent/>
             :
               <HomePage/>
             }
-
-          
         </div>
       );
     }

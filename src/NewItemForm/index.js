@@ -25,7 +25,7 @@ class NewItemForm extends React.Component {
 		return(
 
 		    <div className="newItemForm">
-		        <p>newItemForm</p>
+		    
 		        <form onSubmit={this.handleSubmit}>
 		            <h3>new item</h3>
 		            <div>
@@ -37,7 +37,7 @@ class NewItemForm extends React.Component {
 		            {this.state.transaction === 'expense'?
 		            <div>
 			            <div>
-			            	Name: <input type='text' name="name" onChange={this.handleChange}/>
+			            	Description: <input type='text' name="name" onChange={this.handleChange}/>
 			            </div>
 			            <div>
 			            	Value: <input type='number' name="value" onChange={this.handleChange}/>
@@ -46,7 +46,7 @@ class NewItemForm extends React.Component {
 			            	Date: <input type='date' name="payment_date" onChange={this.handleChange}/>
 			            </div>
 
-			            <button type="Submit">Create Item</button>
+			            <button className='btn newItem' type="Submit">Create Item</button>
 			        </div>
 			        :
 			        null
@@ -64,7 +64,7 @@ class NewItemForm extends React.Component {
 			            	Date: <input type='date' name="payment_date" onChange={this.handleChange}/>
 			            </div>
 
-			            <button type="Submit">Create Item</button>
+			            <button className='btn newItem' type="Submit">Create Item</button>
 			        </div>
 			        :
 			        null

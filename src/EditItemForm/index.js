@@ -60,7 +60,7 @@ class EditItemForm extends React.Component {
 		            {this.state.transaction === 'expense'?
 		            <div>
 			            <div>
-			            	Name: <input type='text' name="name" onChange={this.handleChange}
+			            	Description: <input type='text' name="name" onChange={this.handleChange}
 			            				 value={this.state.name}/>
 			            </div>
 			            <div>
@@ -72,7 +72,7 @@ class EditItemForm extends React.Component {
 			            				 value={this.state.payment_date}/>
 			            </div>
 
-			            <button type="Submit">Save Item</button>
+			            <button className='btn edit' type="Submit">Save Item</button>
 			        </div>
 			        :
 			        null
@@ -93,7 +93,7 @@ class EditItemForm extends React.Component {
 			            						value={this.state.payment_date}/>
 			            </div>
 
-			            <button type="Submit">Save Item</button>
+			            <button className='btn edit' type="Submit">Save Item</button>
 			        </div>
 			        :
 			        null

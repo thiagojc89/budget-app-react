@@ -15,10 +15,10 @@ const ItemComponent = (props)=>{
 				}>
 					
 					<p>
-						<input type='button' value='Delete' onClick={props.deleteItens.bind(null,item.id)}/>
+						<input className="btn delete"type='button' value='Delete' onClick={props.deleteItens.bind(null,item.id)}/>
 					</p>
 					<p>
-						<input type='button' value='Edit' onClick={props.ItemToEdit.bind(null,item)}/>
+						<input className="btn edit" type='button' value='Edit' onClick={props.ItemToEdit.bind(null,item)}/>
 					</p>
 					
 				</Collapsible>
@@ -34,7 +34,7 @@ const ItemComponent = (props)=>{
 		    	<h3>Epenses: {props.totalExpense}</h3>
 		    	  
 		        <form onSubmit={props.showChart}>
-		        	<button>New Item</button>
+		        	<button className="btn newItem">New Item</button>
 		        </form>
 		        
 		        {itens}

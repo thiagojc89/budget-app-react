@@ -72,9 +72,9 @@ class Header extends React.Component {
       this.setState({logged:true})
     }
   }
-  logOut(e){
+  logOut = (e)=>{
     e.preventDefault()
-    console.log('LOGOFFFFFFFF');
+    this.props.logOut()
   }
           
   render() {
@@ -85,23 +85,25 @@ class Header extends React.Component {
         <p id='logo'><strong>Money Chart</strong></p>
         
         {
-        	!this.state.logged ?
+        	!this.props.logged ?
             <div>
   		        <Form onSubmit={this.handleLogin}>
   		            <Label> Email</Label>
   		            <Form.Input type='email' name="email" onChange={this.handleChange} />
   		            <Label> Password</Label>
   		            <Form.Input type='password' name="password" onChange={this.handleChange} />
-  		            <Button type="Submit" color="green">Login</Button>
+  		            <Button className='btn log' type="Submit" color="green">Login</Button>
   		        </Form>
   		        <p id='register'><small>Don't Have an Acount?</small>
-  		          <input type="Submit" value='Register' onClick={this.regOrLog} readOnly/>
+  		          <input className='btn reg' type="Submit" value='Register' onClick={this.regOrLog} readOnly/>
               </p>
             </div>
-		        :
-                <h2 id='logout'>Hello {this.props.first_name}
-                  <button className='btn logout' onClick={this.logOut}> (Log-Out)</button>
-                </h2>
+		        : 
+            <div>
+                <h2 id='logout'>Hello {this.props.first_name}</h2>
+                <button className='btn logout' onClick={this.logOut}> (Log-Out)</button>
+            </div>
+                
       	}
           </div>
 		        
@@ -110,5 +112,4 @@ class Header extends React.Component {
   }
 }
 export default Header;
-
 

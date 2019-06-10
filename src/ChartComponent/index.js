@@ -14,7 +14,7 @@ const ChartComponent =(props)=> {
 	       	<Collapsible trigger={<h2>Line Chart ▼</h2>}
 	       				 transitionTime={1000} 
 	       				 triggerWhenOpen={<h2>Line Chart ▲</h2>}
-	       				 open={true}
+	       				 open={false}
 	       				 triggerStyle={{background: '#2196f3'}}
 	       				 >
 

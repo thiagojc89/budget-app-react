@@ -316,6 +316,7 @@ class MainComponent extends React.Component {
   		this.setState({
   			showChart: false,
   		 	showEditPage: true,
+  		 	showNewItemForm: false,
   			ItemToEdit: item
   		})
   	}
