@@ -25,9 +25,6 @@ class MainComponent extends React.Component {
 			totalExpense: 0
 	    }
 	}
-	showRegister = ()=>{
-
-	}
 	formatBarChart = (allItens)=>{
 		
 		const chartBarData = {

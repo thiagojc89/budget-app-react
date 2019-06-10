@@ -112,6 +112,7 @@ code {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-bottom: 30px;
   /*align-items: center;*/
   /*border: 1px solid black;*/
 

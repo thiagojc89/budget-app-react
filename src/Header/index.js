@@ -65,12 +65,9 @@ class Header extends React.Component {
   }
   regOrLog = (e)=>{
     e.preventDefault()
-    if (this.state.logged){
-      this.setState({logged:false})
-    }else{
 
-      this.setState({logged:true})
-    }
+    this.props.showRegister()
+
   }
   logOut = (e)=>{
     e.preventDefault()

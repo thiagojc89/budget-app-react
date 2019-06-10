@@ -3,6 +3,7 @@ import './App.css';
 import Header from './Header';
 import HomePage from './HomePage';
 import MainComponent from './MainComponent';
+import RegisterComponent from './RegisterComponent';
 // import { Route, Switch } from 'react-router-dom';
 
 
@@ -17,7 +18,8 @@ class App extends React.Component {
       email: '',
       first_name: '',
       last_name:'',
-      logged: false
+      logged: false,
+      showRegister: false
     }
   }
   componentDidMount(){
@@ -37,7 +39,8 @@ class App extends React.Component {
 
       this.setState({
         first_name: parsedResponse[1].first_name,
-        logged: true
+        logged: true,
+        showRegister: false
       })
 
     }
@@ -50,6 +53,7 @@ class App extends React.Component {
       first_name:userData.first_name,
       last_name:userData.last_name,
       logged:userData.logged
+
     })
   }
   logOut = ()=>{
@@ -57,8 +61,12 @@ class App extends React.Component {
         email:null,
         first_name:null,
         last_name:null,
-        logged:null
+        logged:null,
+        showRegister:false
     })
+  }
+  showRegister = ()=>{
+    this.setState({showRegister:true})
   }
   render() {
       return (
@@ -67,13 +75,21 @@ class App extends React.Component {
             <Header appLogin={this.appLogin} 
                     first_name={this.state.first_name} 
                     logged={this.state.logged}
-                    logOut={this.logOut} /> 
+                    logOut={this.logOut}
+                    showRegister={this.showRegister}/> 
 
             {this.state.logged?
               <MainComponent/>
             :
-              <HomePage/>
+              <div>
+              {this.state.showRegister?
+                <RegisterComponent appLogin={this.appLogin} />
+                :
+                <HomePage/>
+              }
+              </div>
             }
+          
         </div>
       );
     }
