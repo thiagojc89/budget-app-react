@@ -17,7 +17,7 @@ class Header extends React.Component {
     })
   }
   handleLogin = async (e) => {
-  	console.log("hiting login handler in header Component");
+  	
     e.preventDefault();
     const loginResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/auth/login', {
       method: 'POST',
@@ -63,14 +63,25 @@ class Header extends React.Component {
     const parsedResponse = await registerResponse.json();
 
   }
+
   regOrLog = (e)=>{
     e.preventDefault()
 
     this.props.showRegister()
 
   }
-  logOut = (e)=>{
+  logOut = async (e)=>{
     e.preventDefault()
+
+    const logoutResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/auth/logout', {
+      method: 'GET',
+      credentials: 'include'
+    });
+
+    const parsedResponse = await logoutResponse.json();
+
+    console.log(parsedResponse);
+
     this.props.logOut()
   }
           

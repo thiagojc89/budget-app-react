@@ -13,10 +13,10 @@ class EditItemForm extends React.Component {
 			transaction: null
 		}
 	}
-	componentDidMount(){
+	componentDidMount(props){
 
-		
-		if (this.props.transaction==='expense'){
+			console.log(this.props.ItemToEdit.transaction);
+		if (this.props.ItemToEdit.transaction==='expense'){
 			
 			const transactionRbtn = document.getElementById("exp");
 			transactionRbtn.checked = true;

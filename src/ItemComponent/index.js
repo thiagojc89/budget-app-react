@@ -11,7 +11,7 @@ const ItemComponent = (props)=>{
 			return(
 
 				<Collapsible key={i} trigger={
-					<li ><strong>{item.name}</strong></li>
+					<div><strong>{item.name}</strong></div>
 				}>
 					
 					<p>
@@ -32,13 +32,15 @@ const ItemComponent = (props)=>{
 		    	
 		    	<h3>Balance: {props.totalBalance}</h3>
 		    	<h3>Epenses: {props.totalExpense}</h3>
-		    	  
+		    	
+		    	<br/>
+		    	<br/> 
 		        <form onSubmit={props.showChart}>
 		        	<button className="btn newItem">New Item</button>
 		        </form>
-		        
-		        {itens}
-		        
+		        <div className="itemList">
+		        	{itens}
+		        </div>
 	        </div>
 	)
 }
