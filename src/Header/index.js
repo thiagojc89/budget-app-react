@@ -96,15 +96,16 @@ class Header extends React.Component {
         	!this.props.logged ?
             <div>
   		        <Form onSubmit={this.handleLogin}>
+                <div>
+
   		            <Label> Email</Label>
   		            <Form.Input type='email' name="email" onChange={this.handleChange} />
   		            <Label> Password</Label>
   		            <Form.Input type='password' name="password" onChange={this.handleChange} />
-  		            <Button className='btn log' type="Submit" color="green">Login</Button>
+  		            <Button className='btn log' type="Submit" color="green">Login</Button>  
+                  <Button className='btn reg' type="Submit" onClick={this.regOrLog}>Register</Button>
+                </div>
   		        </Form>
-  		        <p id='register'><small>Don't Have an Acount?</small>
-  		          <input className='btn reg' type="Submit" value='Register' onClick={this.regOrLog} readOnly/>
-              </p>
             </div>
 		        : 
             <div>
