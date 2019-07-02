@@ -134,6 +134,15 @@ h1,h2,h3,h4{
   /*border: 1px solid black;*/
   /*padding: 90px;*/
 }
+
+#sitedescription h2{
+  font-size: 36px;
+  font-weight: 700;
+}
+#sitedescription p{
+  font-size: 18px;  
+  line-height: 150%
+}
 .MainComponent{
   display: flex;
   flex-direction: column;

@@ -16,8 +16,6 @@ const HomePage =(props)=> {
 					Yeah! I said it, it's good to pay bills, that's is how things work, however not paying them can be very painful or even worst, like when you have money to pay your bills but you passed the due date :(. So with that thinking, I decided to build this website to help ALL!!! those people (me) pay their bills on time and visualize their expenses in order to plan new acquisitions.</p>
 
 			</div>
-	       	
-		    
         </div>
 	)
 }	

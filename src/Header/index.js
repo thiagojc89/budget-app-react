@@ -8,7 +8,9 @@ class Header extends React.Component {
 
     this.state = {
       first_name: '',
-      logged: false
+      logged: false,
+      username: null,
+      password:null
     }
   }
   handleChange = (e) => {
@@ -80,7 +82,12 @@ class Header extends React.Component {
 
     const parsedResponse = await logoutResponse.json();
 
-    console.log(parsedResponse);
+    // console.log(parsedResponse);
+
+    this.setState({
+      username: null,
+      password: null
+    })
 
     this.props.logOut()
   }
