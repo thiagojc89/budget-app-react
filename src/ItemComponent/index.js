@@ -1,47 +1,93 @@
 import React from 'react'
 import Collapsible from 'react-collapsible';
+import NewItemForm from '../NewItemForm'
+import EditItemForm from '../EditItemForm'
 
 
-const ItemComponent = (props)=>{
-	
-	let itens = null
-	if (props.allItens !== undefined){
-		
-		itens = props.allItens.map((item, i)=>{
-			return(
-
-				<Collapsible key={i} trigger={
-					<div><strong>{item.name}</strong></div>
-				}>
-					
-					<p>
-						<input className="btn delete"type='button' value='Delete' onClick={props.deleteItens.bind(null,item.id)}/>
-					</p>
-					<p>
-						<input className="btn edit" type='button' value='Edit' onClick={props.ItemToEdit.bind(null,item)}/>
-					</p>
-					
-				</Collapsible>
-			)
+class ItemComponent extends React.Component{
+	constructor(){
+		super();
+		this.state={
+			showEditPage: false,
+			showNewItemForm: false
+		}
+	}
+	componentDidMount(){
+		this.itens()
+	}
+	showNewItemForm = (e)=> {
+		e.preventDefault()
+		this.setState({
+			showNewItemForm: true
 		})
 	}
+	showEditPage = (e)=> {
+		e.preventDefault()
+		this.setState({
+			showEditPage: true
+		})
+	}
+	itens = ()=> {
+
+		// let itens = null
+		// if (this.props.allItens !== undefined){
+		console.log('gettin itens')	
+		console.log(this.props.allItens, '<<<<--- allItens')
+			return ( this.props.allItens.map((item, i)=>{
+				return(
 	
-	return(
-		        // <p>itemComponent</p>
-		    <div className="itemComponent">
-		    	
-		    	<h3>Balance: {props.totalBalance}</h3>
-		    	<h3>Epenses: {props.totalExpense}</h3>
-		    	
-		    	<br/>
-		    	<br/> 
-		        <form onSubmit={props.showChart}>
-		        	<button className="btn newItem">New Item</button>
-		        </form>
-		        <div className="itemList">
-		        	{itens}
-		        </div>
-	        </div>
-	)
+					<Collapsible key={i} trigger={
+						<div><strong>{item.name}</strong></div>
+					}>
+						
+						<p>
+							<input className="btn delete"
+									type='button' 
+									value='Delete' 
+									onClick={this.props.deleteItens.bind(null,item.id)}/>
+						</p>
+						<p>
+							<input className="btn edit" 
+									type='button' 
+									value='Edit' 
+									onClick={this.props.ItemToEdit.bind(null,item)}/>
+						</p>
+						
+					</Collapsible>
+				)
+			})
+			)
+		// }
+	}
+	render(){
+		return(
+				<div className="itemComponent">
+					
+					<h4>Balance: {this.props.totalBalance}</h4>
+					<h4>Epenses: {this.props.totalExpense}</h4>
+					
+					<br/>
+					<br/> 
+					<form onSubmit={this.showNewItemForm}>
+						<button className="btn newItem">New Item</button>
+					</form>
+					<div className="itemList">
+						{this.itens}
+					</div>
+					
+					{this.state.showEditPage?
+				    	<EditItemForm editItem={this.props.editItens} ItemToEdit={this.state.props.ItemToEdit}/>
+						:
+				    	null
+				    }
+				    
+				    {this.state.showNewItemForm?
+				    	<NewItemForm createItens={this.props.createItens}/>
+				    	:
+				    	null
+				    }
+				</div>
+		)
+	}
 }
 export default ItemComponent;

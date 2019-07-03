@@ -1,8 +1,8 @@
 import React from 'react';
 import ItemComponent from '../ItemComponent'
 import ChartComponent from '../ChartComponent'
-import NewItemForm from '../NewItemForm'
-import EditItemForm from '../EditItemForm'
+// import NewItemForm from '../NewItemForm'
+// import EditItemForm from '../EditItemForm'
 import RegisterComponent from '../RegisterComponent'
 
 
@@ -14,9 +14,9 @@ class MainComponent extends React.Component {
 	    	budget_id:'',
 	    	itens:[],
 	    	allItens:[],
-	    	showChart: true,
-	    	showEditPage:false,
-	    	showNewItemForm: false,
+	    	showChart: false,
+	    	// showEditPage:false,
+	    	// showNewItemForm: false,
 	    	showRegister: false,
 	    	chartLineData:{},
 	    	chartBarData:{},
@@ -194,15 +194,15 @@ class MainComponent extends React.Component {
 		this.getitens()
 		
 	}
-	showChart = (e)=>{
-		e.preventDefault()
-		this.setState({
-			showChart: false,
-			showEditPage: false,
-			showNewItemForm: true
+	// showNewItemForm = (e)=>{
+	// 	e.preventDefault()
+	// 	this.setState({
+	// 		// showChart: false
+	// 		// showEditPage: false,
+	// 		showNewItemForm: true
 
-		})
-	}
+	// 	})
+	// }
   	createItens = async (item)=> {
 
 
@@ -246,9 +246,9 @@ class MainComponent extends React.Component {
 
 
 			this.setState({
-				showChart: true,
-				showEditPage: false,
-				showNewItemForm: false,
+				// showChart: true,
+				// showEditPage: false,
+				// showNewItemForm: false,
 				allItens: parsedResponse,
 				chartBarData: chartBarData,
 				chartLineData: chartLineData,
@@ -311,9 +311,9 @@ class MainComponent extends React.Component {
   		// console.log('this is the item i will update', item);
   		
   		this.setState({
-  			showChart: false,
-  		 	showEditPage: true,
-  		 	showNewItemForm: false,
+  			// showChart: false,
+  		 	// showEditPage: true,
+  		 	// showNewItemForm: false,
   			ItemToEdit: item
   		})
 	}
@@ -343,7 +343,7 @@ class MainComponent extends React.Component {
 		      	<div className="main-container">
 			        
 				    
-				    {this.state.showEditPage?
+				    {/* {this.state.showEditPage?
 				    	<EditItemForm editItem={this.editItens} ItemToEdit={this.state.ItemToEdit}/>
 						:
 				    	null
@@ -353,19 +353,20 @@ class MainComponent extends React.Component {
 				    	<NewItemForm createItens={this.createItens}/>
 				    	:
 				    	null
-				    }
+				    } */}
 				    {this.state.showChart?
 				    	<ChartComponent allItens={this.state.allItens} 
 						chartBarData={this.state.chartBarData}
 						chartLineData={this.state.chartLineData}/>
 				    	:
-				    	// null
-						<ItemComponent showChart={this.showChart} 
+				    	
+						<ItemComponent showNewItemForm={this.showNewItemForm} 
 									   allItens={this.state.allItens} 
 									   deleteItens={this.deleteItens}
 									   ItemToEdit={this.ItemToEdit}
 									   totalExpense={this.state.totalExpense}
-									   totalBalance={this.state.totalBalance}/>
+									   totalBalance={this.state.totalBalance}
+									   createItens={this.createItens}/>
 				    }
 				    {this.state.showRegister?
 				    	<RegisterComponent/>
