@@ -157,6 +157,12 @@ h1,h2,h3,h4{
   padding: 20px;
   /*border: 10px solid red;*/
 }
+#MainComponentMenu{
+  /* border: 2px solid red; */
+  display: flex;
+  justify-content: center;
+  flex-flow: row;
+}
 
 .itemComponent{
   display: flex;

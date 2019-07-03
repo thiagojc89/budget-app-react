@@ -316,24 +316,36 @@ class MainComponent extends React.Component {
   		 	showNewItemForm: false,
   			ItemToEdit: item
   		})
-  	}
+	}
+	showReport = (e)=>{
+		
+		e.preventDefault()
+		this.setState({
+			showChart: false
+		})
+	} 
+	showChart = (e)=>{
+		
+		e.preventDefault()
+
+		this.setState({
+			showChart: true
+		})
+	}  
   	render() {
     		
     	return (
       		<div className="MainComponent">
-		    
+				<div id='MainComponentMenu'>
+					<input type='button' value='Report' onClick={this.showReport}/>
+					<input type='button' value='Chart' onClick={this.showChart}/>
+				</div>
 		      	<div className="main-container">
 			        
-			        <ItemComponent showChart={this.showChart} 
-			        			   allItens={this.state.allItens} 
-			        			   deleteItens={this.deleteItens}
-			        			   ItemToEdit={this.ItemToEdit}
-			        			   totalExpense={this.state.totalExpense}
-			        			   totalBalance={this.state.totalBalance}/>
 				    
 				    {this.state.showEditPage?
 				    	<EditItemForm editItem={this.editItens} ItemToEdit={this.state.ItemToEdit}/>
-				    :
+						:
 				    	null
 				    }
 				    
@@ -344,10 +356,16 @@ class MainComponent extends React.Component {
 				    }
 				    {this.state.showChart?
 				    	<ChartComponent allItens={this.state.allItens} 
-				    					chartBarData={this.state.chartBarData}
-				    					chartLineData={this.state.chartLineData}/>
+						chartBarData={this.state.chartBarData}
+						chartLineData={this.state.chartLineData}/>
 				    	:
-				    	null
+				    	// null
+						<ItemComponent showChart={this.showChart} 
+									   allItens={this.state.allItens} 
+									   deleteItens={this.deleteItens}
+									   ItemToEdit={this.ItemToEdit}
+									   totalExpense={this.state.totalExpense}
+									   totalBalance={this.state.totalBalance}/>
 				    }
 				    {this.state.showRegister?
 				    	<RegisterComponent/>
