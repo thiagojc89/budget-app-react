@@ -191,41 +191,10 @@ class MainComponent extends React.Component {
 
 	}
 	componentDidMount(){
+		console.log('CDM in Main component')
 		this.getitens()
 		
 	}
-	// showNewItemForm = (e)=>{
-	// 	e.preventDefault()
-	// 	this.setState({
-	// 		// showChart: false
-	// 		// showEditPage: false,
-	// 		showNewItemForm: true
-
-	// 	})
-	// }
-  	createItens = async (item)=> {
-
-
-  	  	try{
-  	  		const newItem = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem', {
-	  	  		method: 'POST',
-			    credentials: 'include',
-			    body: JSON.stringify(item),
-			    headers: {
-	          		'Content-Type': 'application/json'
-        		}
-   			});
-
-   			// const parsedResponse = await newItem.json();
-
-   			// console.log('this is my new item >>>> ',parsedResponse);
-   			this.getitens()
-
-  	  	}
-  	  	catch(err){
-  	  		console.log(err)
-  	  	}
-  	}
   	getitens = async ()=> {
 
 
@@ -236,7 +205,8 @@ class MainComponent extends React.Component {
 
    			const parsedResponse = await allitens.json();
 
-   			// console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
+			
+   			console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
 
    			const chartBarData =  this.formatBarChart(parsedResponse)
 
@@ -260,63 +230,63 @@ class MainComponent extends React.Component {
   	  		console.log(err)
   	  	}
   	}
-  	deleteItens = async (item,e)=> {
-  		e.preventDefault()
-  	  	try{
-  	  		const deleteItens = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem?item_id='+item, {
-  	  			method: 'DELETE',
-			    credentials: 'include'
-			});
+  	// deleteItens = async (item,e)=> {
+  	// 	e.preventDefault()
+  	//   	try{
+  	//   		const deleteItens = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem?item_id='+item, {
+  	//   			method: 'DELETE',
+	// 		    credentials: 'include'
+	// 		});
 
-   			// const parsedResponse = await deleteItens.json();
+   	// 		// const parsedResponse = await deleteItens.json();
 
-   			this.getitens()
-
-
-  	  	}
-  	  	catch(err){
-  	  		console.log(err)
-  	  	}
-  	}
-  	editItens = async (item)=> {
-  		// e.preventDefault()
-
-  		// console.log('this is the item I will update', item);
-
-  	  	try{
-  	  		const deleteItens = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem?item_id='+item.id, {
-  	  			method: 'PUT',
-			    credentials: 'include',
-			    body: JSON.stringify(item),
-			    headers: {
-	          		'Content-Type': 'application/json'
-        		}
-			});
-
-   			const parsedResponse = await deleteItens.json();
-
-   			console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
-
-   			this.getitens()
+   	// 		this.getitens()
 
 
-  	  	}
-  	  	catch(err){
-  	  		console.log(err)
-  	  	}
-  	}
-  	ItemToEdit = (item,e)=>{
-  		e.preventDefault()
+  	//   	}
+  	//   	catch(err){
+  	//   		console.log(err)
+  	//   	}
+  	// }
+  	// editItens = async (item)=> {
+  	// 	// e.preventDefault()
 
-  		// console.log('this is the item i will update', item);
+  	// 	// console.log('this is the item I will update', item);
+
+  	//   	try{
+  	//   		const deleteItens = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem?item_id='+item.id, {
+  	//   			method: 'PUT',
+	// 		    credentials: 'include',
+	// 		    body: JSON.stringify(item),
+	// 		    headers: {
+	//           		'Content-Type': 'application/json'
+    //     		}
+	// 		});
+
+   	// 		const parsedResponse = await deleteItens.json();
+
+   	// 		console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
+
+   	// 		this.getitens()
+
+
+  	//   	}
+  	//   	catch(err){
+  	//   		console.log(err)
+  	//   	}
+  	// }
+  	// ItemToEdit = (item,e)=>{
+  	// 	e.preventDefault()
+
+  	// 	// console.log('this is the item i will update', item);
   		
-  		this.setState({
-  			// showChart: false,
-  		 	// showEditPage: true,
-  		 	// showNewItemForm: false,
-  			ItemToEdit: item
-  		})
-	}
+  	// 	this.setState({
+  	// 		// showChart: false,
+  	// 	 	// showEditPage: true,
+  	// 	 	// showNewItemForm: false,
+  	// 		ItemToEdit: item
+  	// 	})
+	// }
 	showReport = (e)=>{
 		
 		e.preventDefault()
@@ -333,7 +303,8 @@ class MainComponent extends React.Component {
 		})
 	}  
   	render() {
-    		
+		console.log('RENDER Main Componente')
+		
     	return (
       		<div className="MainComponent">
 				<div id='MainComponentMenu'>
@@ -366,7 +337,8 @@ class MainComponent extends React.Component {
 									   ItemToEdit={this.ItemToEdit}
 									   totalExpense={this.state.totalExpense}
 									   totalBalance={this.state.totalBalance}
-									   createItens={this.createItens}/>
+									//    createItens={this.createItens}
+									   getitens={this.getitens}/>
 				    }
 				    {this.state.showRegister?
 				    	<RegisterComponent/>

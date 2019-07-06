@@ -167,13 +167,11 @@ h1,h2,h3,h4{
 .itemComponent{
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   margin: 5px 10px 0 0;
   padding-left: 20px;
   padding-right: 20px;
-  border-right: 10px solid gray;
-  /*border-radius: 30px; */
-  width: 30%;
+  width: 100%;
 }
 .itemComponent li{
   list-style: none;

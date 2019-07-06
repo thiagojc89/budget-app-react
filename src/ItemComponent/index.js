@@ -12,25 +12,99 @@ class ItemComponent extends React.Component{
 			showNewItemForm: false
 		}
 	}
-	componentDidMount(){
-		this.itens()
-	}
 	showNewItemForm = (e)=> {
 		e.preventDefault()
 		this.setState({
 			showNewItemForm: true
 		})
 	}
-	showEditPage = (e)=> {
+	createItens = async (item)=> {
+
+
+		try{
+			const newItem = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem', {
+				method: 'POST',
+				credentials: 'include',
+				body: JSON.stringify(item),
+				headers: {
+				  'Content-Type': 'application/json'
+				}
+		   	});
+
+		   this.props.getitens()
+		   this.setState({
+			showNewItemForm: false
+		   })
+
+		}
+		catch(err){
+			console.log(err)
+		}
+  	}
+	showEditPage = (item,e)=> {
 		e.preventDefault()
 		this.setState({
-			showEditPage: true
+			showEditPage: true,
+			ItemToEdit: item
 		})
 	}
+	deleteItens = async (item,e)=> {
+		e.preventDefault()
+		  try{
+			  const deleteItens = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem?item_id='+item, {
+				  method: 'DELETE',
+			  credentials: 'include'
+		  });
+
+			 // const parsedResponse = await deleteItens.json();
+
+			 this.props.getitens()
+
+
+		  }
+		  catch(err){
+			  console.log(err)
+		  }
+	}
+	editItens = async (item)=> {
+		// e.preventDefault()
+
+		// console.log('this is the item I will update', item);
+
+		  try{
+			  const deleteItens = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem?item_id='+item.id, {
+				  method: 'PUT',
+			  credentials: 'include',
+			  body: JSON.stringify(item),
+			  headers: {
+					'Content-Type': 'application/json'
+			  }
+		  });
+
+			 const parsedResponse = await deleteItens.json();
+
+			 console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
+
+			 this.props.getitens()
+
+
+		  }
+		  catch(err){
+			  console.log(err)
+		  }
+	}
+	ItemToEdit = (item,e)=>{
+		e.preventDefault()
+
+		// console.log('this is the item i will update', item);
+		
+		this.setState({
+			ItemToEdit: item
+		})
+		this.showEditPage()
+  	}
 	itens = ()=> {
 
-		// let itens = null
-		// if (this.props.allItens !== undefined){
 		console.log('gettin itens')	
 		console.log(this.props.allItens, '<<<<--- allItens')
 			return ( this.props.allItens.map((item, i)=>{
@@ -44,13 +118,13 @@ class ItemComponent extends React.Component{
 							<input className="btn delete"
 									type='button' 
 									value='Delete' 
-									onClick={this.props.deleteItens.bind(null,item.id)}/>
+									onClick={this.deleteItens.bind(null,item.id)}/>
 						</p>
 						<p>
 							<input className="btn edit" 
 									type='button' 
 									value='Edit' 
-									onClick={this.props.ItemToEdit.bind(null,item)}/>
+									onClick={this.showEditPage.bind(null,item)}/>
 						</p>
 						
 					</Collapsible>
@@ -72,17 +146,17 @@ class ItemComponent extends React.Component{
 						<button className="btn newItem">New Item</button>
 					</form>
 					<div className="itemList">
-						{this.itens}
+						{this.itens()}
 					</div>
 					
 					{this.state.showEditPage?
-				    	<EditItemForm editItem={this.props.editItens} ItemToEdit={this.state.props.ItemToEdit}/>
+				    	<EditItemForm editItem={this.props.editItens} ItemToEdit={this.state.ItemToEdit}/>
 						:
 				    	null
 				    }
 				    
 				    {this.state.showNewItemForm?
-				    	<NewItemForm createItens={this.props.createItens}/>
+				    	<NewItemForm createItens={this.createItens}/>
 				    	:
 				    	null
 				    }
