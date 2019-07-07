@@ -8,9 +8,19 @@ class ItemComponent extends React.Component{
 	constructor(){
 		super();
 		this.state={
-			showEditPage: false,
-			showNewItemForm: false
+			enableEdit: false,
+			showNewItemForm: false,
+			name: null,
+			value: null,
+			due_date: '2019-06-09',
+			payment_date: null,
+			transaction: null
 		}
+	}
+	handleChange = (e) => {
+		this.setState({
+			[e.currentTarget.name]: e.currentTarget.value
+		})
 	}
 	showNewItemForm = (e)=> {
 		e.preventDefault()
@@ -41,12 +51,22 @@ class ItemComponent extends React.Component{
 			console.log(err)
 		}
   	}
-	showEditPage = (item,e)=> {
+	enableEdit = (item,e)=> {
 		e.preventDefault()
-		this.setState({
-			showEditPage: true,
-			ItemToEdit: item
-		})
+
+		const itemToEnable =  document.getElementsByClassName(item.id)
+		console.log('here it is my item I will enable', itemToEnable)
+		
+		for (let i = 0; itemToEnable.length > i; i++){
+			console.log(itemToEnable[i])
+			itemToEnable[i].disabled = false
+				
+		}
+
+		// this.setState({
+		// 	enableEdit: true,
+		// 	ItemToEdit: item
+		// })
 	}
 	deleteItens = async (item,e)=> {
 		e.preventDefault()
@@ -83,9 +103,13 @@ class ItemComponent extends React.Component{
 
 			 const parsedResponse = await deleteItens.json();
 
+
 			 console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
 
 			 this.props.getitens()
+			 this.setState({
+				enableEdit: false
+			 })
 
 
 		  }
@@ -101,37 +125,71 @@ class ItemComponent extends React.Component{
 		this.setState({
 			ItemToEdit: item
 		})
-		this.showEditPage()
+		this.enableEdit()
   	}
 	itens = ()=> {
 
 		console.log('gettin itens')	
 		console.log(this.props.allItens, '<<<<--- allItens')
-			return ( this.props.allItens.map((item, i)=>{
+		return ( 
+				
+			this.props.allItens.map((item, i)=>{
 				return(
-	
-					<Collapsible key={i} trigger={
-						<div><strong>{item.name}</strong></div>
-					}>
-						
-						<p>
-							<input className="btn delete"
-									type='button' 
-									value='Delete' 
-									onClick={this.deleteItens.bind(null,item.id)}/>
-						</p>
-						<p>
+					<div className='itemGrid'>
+
+						<div>
+							{item.transaction==='deposit'?
+							<select className={item.id} disabled='true'>
+								<option value='deposit' selected='true'>Deposit</option>
+								<option value='expense'>Expense</option>
+							</select>
+							:
+							<select className={item.id} disabled='true'>
+								<option value='deposit'>Deposit</option>
+								<option value='expense' selected='true'>Expense</option>
+							</select>}
+						</div>
+						<div>
+							<input className={item.id} 
+								   type='text' 
+								   name="name" 
+								   onChange={this.handleChange} 
+								   disabled='true' 
+								   value={item.name} />
+						</div>
+						<div>
+							<input className={item.id} 
+								   type='number' min="0" step=".01" 
+								   name="value" onChange={this.handleChange}
+							       disabled='true'
+							       value={item.value}/>
+						</div>
+						<div>
+							<input className={item.id}
+								   type='date' 
+								   name="payment_date" onChange={this.handleChange}
+								   disabled='true'
+								   value={item.payment_date} />
+						</div>
+					
+						<div>
+							<input className={item.id}
+								   className="btn delete"
+								   type='button' 
+								   value='Delete' 
+								   onClick={this.deleteItens.bind(null,item.id)}/>
+						</div>
+						<div>
 							<input className="btn edit" 
 									type='button' 
 									value='Edit' 
-									onClick={this.showEditPage.bind(null,item)}/>
-						</p>
-						
-					</Collapsible>
+									onClick={this.enableEdit.bind(null,item)}/>
+						</div>
+					</div>	
+					
 				)
 			})
-			)
-		// }
+		)
 	}
 	render(){
 		return(
@@ -149,8 +207,8 @@ class ItemComponent extends React.Component{
 						{this.itens()}
 					</div>
 					
-					{this.state.showEditPage?
-				    	<EditItemForm editItem={this.props.editItens} ItemToEdit={this.state.ItemToEdit}/>
+					{this.state.enableEdit?
+				    	<EditItemForm editItem={this.editItens} ItemToEdit={this.state.ItemToEdit}/>
 						:
 				    	null
 				    }

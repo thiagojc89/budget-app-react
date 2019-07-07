@@ -64,7 +64,7 @@ class EditItemForm extends React.Component {
 			            				 value={this.state.name}/>
 			            </div>
 			            <div>
-			            	Value: <input type='number' name="value" onChange={this.handleChange}
+							Value: <input type='number' min="0" step="any" name="value" onChange={this.handleChange}
 			            				 value={this.state.value}/>
 			            </div>
 			            <div>
@@ -85,7 +85,7 @@ class EditItemForm extends React.Component {
 			            						value={this.state.name}/>
 			            </div>
 			            <div>
-			            	Value: <input type='number' name="value" onChange={this.handleChange}
+							Value: <input type='number' min="0" step="any" name="value" onChange={this.handleChange}
 			            						value={this.state.value}/>
 			            </div>
 			            <div>

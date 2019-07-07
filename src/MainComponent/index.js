@@ -230,63 +230,6 @@ class MainComponent extends React.Component {
   	  		console.log(err)
   	  	}
   	}
-  	// deleteItens = async (item,e)=> {
-  	// 	e.preventDefault()
-  	//   	try{
-  	//   		const deleteItens = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem?item_id='+item, {
-  	//   			method: 'DELETE',
-	// 		    credentials: 'include'
-	// 		});
-
-   	// 		// const parsedResponse = await deleteItens.json();
-
-   	// 		this.getitens()
-
-
-  	//   	}
-  	//   	catch(err){
-  	//   		console.log(err)
-  	//   	}
-  	// }
-  	// editItens = async (item)=> {
-  	// 	// e.preventDefault()
-
-  	// 	// console.log('this is the item I will update', item);
-
-  	//   	try{
-  	//   		const deleteItens = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem?item_id='+item.id, {
-  	//   			method: 'PUT',
-	// 		    credentials: 'include',
-	// 		    body: JSON.stringify(item),
-	// 		    headers: {
-	//           		'Content-Type': 'application/json'
-    //     		}
-	// 		});
-
-   	// 		const parsedResponse = await deleteItens.json();
-
-   	// 		console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
-
-   	// 		this.getitens()
-
-
-  	//   	}
-  	//   	catch(err){
-  	//   		console.log(err)
-  	//   	}
-  	// }
-  	// ItemToEdit = (item,e)=>{
-  	// 	e.preventDefault()
-
-  	// 	// console.log('this is the item i will update', item);
-  		
-  	// 	this.setState({
-  	// 		// showChart: false,
-  	// 	 	// showEditPage: true,
-  	// 	 	// showNewItemForm: false,
-  	// 		ItemToEdit: item
-  	// 	})
-	// }
 	showReport = (e)=>{
 		
 		e.preventDefault()
@@ -312,25 +255,12 @@ class MainComponent extends React.Component {
 					<input type='button' value='Chart' onClick={this.showChart}/>
 				</div>
 		      	<div className="main-container">
-			        
-				    
-				    {/* {this.state.showEditPage?
-				    	<EditItemForm editItem={this.editItens} ItemToEdit={this.state.ItemToEdit}/>
-						:
-				    	null
-				    }
-				    
-				    {this.state.showNewItemForm?
-				    	<NewItemForm createItens={this.createItens}/>
-				    	:
-				    	null
-				    } */}
-				    {this.state.showChart?
+					{this.state.showChart?
+					
 				    	<ChartComponent allItens={this.state.allItens} 
 						chartBarData={this.state.chartBarData}
 						chartLineData={this.state.chartLineData}/>
-				    	:
-				    	
+				    :
 						<ItemComponent showNewItemForm={this.showNewItemForm} 
 									   allItens={this.state.allItens} 
 									   deleteItens={this.deleteItens}

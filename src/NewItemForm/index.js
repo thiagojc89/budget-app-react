@@ -40,7 +40,7 @@ class NewItemForm extends React.Component {
 			            	Description: <input type='text' name="name" onChange={this.handleChange}/>
 			            </div>
 			            <div>
-			            	Value: <input type='number' name="value" onChange={this.handleChange}/>
+								Value: <input type='number' name="value" min="0" step=".01" onChange={this.handleChange}/>
 			            </div>
 			            <div>
 			            	Date: <input type='date' name="payment_date" onChange={this.handleChange}/>
@@ -58,7 +58,7 @@ class NewItemForm extends React.Component {
 			            	Description: <input type='text' name="name" onChange={this.handleChange}/>
 			            </div>
 			            <div>
-			            	Value: <input type='number' name="value" onChange={this.handleChange}/>
+							Value: <input type='number' name="value" min="0" step=".01" onChange={this.handleChange}/>
 			            </div>
 			            <div>
 			            	Date: <input type='date' name="payment_date" onChange={this.handleChange}/>
