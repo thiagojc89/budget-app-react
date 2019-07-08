@@ -26,7 +26,6 @@ class EditItemForm extends React.Component {
 			transactionRbtn.checked = true;
 		}
 
-
 		this.setState({
 			id: this.props.ItemToEdit.id,
 			name: this.props.ItemToEdit.name,
@@ -49,8 +48,8 @@ class EditItemForm extends React.Component {
 
 		    <div className="editItemForm">
 		        
-		        <form onSubmit={this.handleSubmit}>
-		            <h3>Edit item</h3>
+		        {/* <form onSubmit={this.handleSubmit}> */}
+		            {/* <h3>Edit item</h3>
 		            <div>
 		            	Transaction: <input id='exp' type='radio' name="transaction" value='expense'onChange={this.handleChange}/>
 		            					<label htmlFor="expense">Expense</label>
@@ -98,7 +97,7 @@ class EditItemForm extends React.Component {
 			        :
 			        null
 		            }
-		        </form>
+		        </form> */}
 	        </div>
 		)
 	}

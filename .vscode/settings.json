@@ -3,5 +3,5 @@
     "breadcrumbs.enabled": false,
     "bracketPairColorizer.showHorizontalScopeLine": false,
     "editor.renderIndentGuides": false,
-    "editor.renderLineHighlight": "none"
+    "editor.renderLineHighlight": "gutter"
 }

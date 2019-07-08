@@ -1,11 +1,12 @@
 import React from 'react'
-import Collapsible from 'react-collapsible';
+// import Collapsible from 'react-collapsible';
 import NewItemForm from '../NewItemForm'
 import EditItemForm from '../EditItemForm'
+import ShowItem from '../ShowItem'
 
 
 class ItemComponent extends React.Component{
-	constructor(){
+	constructor(props){
 		super();
 		this.state={
 			enableEdit: false,
@@ -14,9 +15,19 @@ class ItemComponent extends React.Component{
 			value: null,
 			due_date: '2019-06-09',
 			payment_date: null,
-			transaction: null
+			transaction: null,
+			allItens:false
 		}
 	}
+	
+	// componentDidMount(){
+	// 	// console.log('CDM in item componente', this.props.allItens)
+	// 	this.setState({
+	// 		allItens:this.props.allItens
+	// 	})
+
+		
+	// }
 	handleChange = (e) => {
 		this.setState({
 			[e.currentTarget.name]: e.currentTarget.value
@@ -51,23 +62,6 @@ class ItemComponent extends React.Component{
 			console.log(err)
 		}
   	}
-	enableEdit = (item,e)=> {
-		e.preventDefault()
-
-		const itemToEnable =  document.getElementsByClassName(item.id)
-		console.log('here it is my item I will enable', itemToEnable)
-		
-		for (let i = 0; itemToEnable.length > i; i++){
-			console.log(itemToEnable[i])
-			itemToEnable[i].disabled = false
-				
-		}
-
-		// this.setState({
-		// 	enableEdit: true,
-		// 	ItemToEdit: item
-		// })
-	}
 	deleteItens = async (item,e)=> {
 		e.preventDefault()
 		  try{
@@ -107,9 +101,9 @@ class ItemComponent extends React.Component{
 			 console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
 
 			 this.props.getitens()
-			 this.setState({
-				enableEdit: false
-			 })
+			//  this.setState({
+			// 	enableEdit: false
+			//  })
 
 
 		  }
@@ -129,24 +123,29 @@ class ItemComponent extends React.Component{
   	}
 	itens = ()=> {
 
+		
+		console.log(this.state.allItens,'<===this.state.allItens')
+		// if (this.state.allItens === false || this.state.allItens.length === 0){
+		// 		return null
+		// }
 		console.log('gettin itens')	
 		console.log(this.props.allItens, '<<<<--- allItens')
 		return ( 
 				
 			this.props.allItens.map((item, i)=>{
 				return(
-					<div className='itemGrid'>
+					<div className='itemGrid' key={item.id}>
 
 						<div>
 							{item.transaction==='deposit'?
-							<select className={item.id} disabled='true'>
-								<option value='deposit' selected='true'>Deposit</option>
+							<select className={item.id} disabled value='deposit'>
+								<option value='deposit'>Deposit</option>
 								<option value='expense'>Expense</option>
 							</select>
 							:
-							<select className={item.id} disabled='true'>
+							<select className={item.id} disabled value='expense'>
 								<option value='deposit'>Deposit</option>
-								<option value='expense' selected='true'>Expense</option>
+								<option value='expense'>Expense</option>
 							</select>}
 						</div>
 						<div>
@@ -154,27 +153,26 @@ class ItemComponent extends React.Component{
 								   type='text' 
 								   name="name" 
 								   onChange={this.handleChange} 
-								   disabled='true' 
+								   disabled
 								   value={item.name} />
 						</div>
 						<div>
 							<input className={item.id} 
 								   type='number' min="0" step=".01" 
 								   name="value" onChange={this.handleChange}
-							       disabled='true'
+							       disabled
 							       value={item.value}/>
 						</div>
 						<div>
 							<input className={item.id}
 								   type='date' 
 								   name="payment_date" onChange={this.handleChange}
-								   disabled='true'
+								   disabled
 								   value={item.payment_date} />
 						</div>
 					
 						<div>
-							<input className={item.id}
-								   className="btn delete"
+							<input className="btn delete"
 								   type='button' 
 								   value='Delete' 
 								   onClick={this.deleteItens.bind(null,item.id)}/>
@@ -185,13 +183,13 @@ class ItemComponent extends React.Component{
 									value='Edit' 
 									onClick={this.enableEdit.bind(null,item)}/>
 						</div>
-					</div>	
-					
+					</div>		
 				)
 			})
 		)
 	}
 	render(){
+		console.log(this.state.allItens,'state in the render')
 		return(
 				<div className="itemComponent">
 					
@@ -203,10 +201,11 @@ class ItemComponent extends React.Component{
 					<form onSubmit={this.showNewItemForm}>
 						<button className="btn newItem">New Item</button>
 					</form>
-					<div className="itemList">
-						{this.itens()}
-					</div>
-					
+					<ShowItem allItens={this.props.allItens}
+							  deleteItens={this.deleteItens}
+							  enableEdit={this.enableEdit}
+							  editItens={this.editItens}/>
+  	
 					{this.state.enableEdit?
 				    	<EditItemForm editItem={this.editItens} ItemToEdit={this.state.ItemToEdit}/>
 						:
