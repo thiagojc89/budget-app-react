@@ -8,40 +8,39 @@ const ChartComponent =(props)=> {
 	return(
 	    <div className="chartComponent">
 
-			
 	       	<div className='chartContent'>
 
-	       	<Collapsible trigger={<h2>Line Chart ▼</h2>}
-	       				 transitionTime={1000} 
-	       				 triggerWhenOpen={<h2>Line Chart ▲</h2>}
-	       				 open={false}
-	       				 triggerStyle={{background: '#2196f3'}}
-	       				 >
+				<Collapsible trigger={<h2>Line Chart ▼</h2>}
+							transitionTime={1000} 
+							triggerWhenOpen={<h2>Line Chart ▲</h2>}
+							open={true}
+							triggerStyle={{background: '#2196f3'}}
+							>
 
-		        <Line 
-		        	data={props.chartLineData}
-		        	width={900}
-  					height={350}
-		        	options={{
-		        		legend: {
-                    	    display: true,
-                        	fontColor: 'green'
-                			},
-                		responsive: true,
-                		maintainAspectRatio: true,
-                		scales: {
-                    		yAxes: [{
-                        		ticks: {
-                            		beginAtZero:true,
-                            		stepSize: 100
-                        			}
-                    			}]
-                			}
-                		}
-                	}
+					<Line 
+						data={props.chartLineData}
+						width={900}
+						height={350}
+						options={{
+							legend: {
+								display: true,
+								fontColor: 'green'
+								},
+							responsive: true,
+							maintainAspectRatio: true,
+							scales: {
+								yAxes: [{
+									ticks: {
+										beginAtZero:true,
+										stepSize: 100
+										}
+									}]
+								}
+							}
+						}
 
-		        />
-		    </Collapsible>
+					/>
+				</Collapsible>
 		    </div>
 		    <div className='chartContent'>
 		        <Collapsible 

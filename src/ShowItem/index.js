@@ -78,16 +78,9 @@ class ShowItem extends React.Component {
 
                     <div className='itemGrid'>
                     <div>
-                        {item.transaction === 'deposit' ?
-                            <select className={item.id} disabled value='deposit'>
-                                <option value='deposit'>Deposit</option>
-                                <option value='expense'>Expense</option>
-                            </select>
-                            :
-                            <select className={item.id} disabled value='expense'>
-                                <option value='deposit'>Deposit</option>
-                                <option value='expense'>Expense</option>
-                            </select>}
+                            <li>
+                                {item.transaction}
+                            </li>
                     </div>
                     <div>
                         <input className={item.id}

@@ -27,33 +27,14 @@ class NewItemForm extends React.Component {
 		    <div className="newItemForm">
 		    
 		        <form onSubmit={this.handleSubmit}>
-		            <h3>new item</h3>
 		            <div>
 		            	Transaction: <input type='radio' name="transaction" value='expense'onChange={this.handleChange}/>
 		            					<label htmlFor="expense">Expense</label>
 		            				 <input type='radio' name="transaction" value='deposit'onChange={this.handleChange}/>
 		            				 	<label htmlFor="deposit">Deposit</label>
 		            </div>
-		            {this.state.transaction === 'expense'?
-		            <div>
-			            <div>
-			            	Description: <input type='text' name="name" onChange={this.handleChange}/>
-			            </div>
-			            <div>
-								Value: <input type='number' name="value" min="0" step=".01" onChange={this.handleChange}/>
-			            </div>
-			            <div>
-			            	Date: <input type='date' name="payment_date" onChange={this.handleChange}/>
-			            </div>
-
-			            <button className='btn newItem' type="Submit">Create Item</button>
-			        </div>
-			        :
-			        null
-			    	}
-			        
-			        {this.state.transaction === 'deposit'?
-			        <div>
+		            
+		            
 			            <div>
 			            	Description: <input type='text' name="name" onChange={this.handleChange}/>
 			            </div>
@@ -63,12 +44,10 @@ class NewItemForm extends React.Component {
 			            <div>
 			            	Date: <input type='date' name="payment_date" onChange={this.handleChange}/>
 			            </div>
-
-			            <button className='btn newItem' type="Submit">Create Item</button>
-			        </div>
-			        :
-			        null
-		            }
+						<div>
+			            	<button className='btn createItem' type="Submit">Create Item</button>
+						</div>
+			        
 		        </form>
 	        </div>
 		)

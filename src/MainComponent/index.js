@@ -1,10 +1,10 @@
 import React from 'react';
 import ItemComponent from '../ItemComponent'
 import ChartComponent from '../ChartComponent'
-// import NewItemForm from '../NewItemForm'
+import NewItemForm from '../NewItemForm'
 // import EditItemForm from '../EditItemForm'
 import RegisterComponent from '../RegisterComponent'
-
+import Collapsible from 'react-collapsible';
 
 
 class MainComponent extends React.Component {
@@ -16,13 +16,14 @@ class MainComponent extends React.Component {
 	    	allItens:[],
 	    	showChart: false,
 	    	// showEditPage:false,
-	    	// showNewItemForm: false,
+	    	showNewItemForm: false,
 	    	showRegister: false,
 	    	chartLineData:{},
 	    	chartBarData:{},
 	    	ItemToEdit: null,
 	    	totalBalance: 0,
-			totalExpense: 0
+			totalExpense: 0,
+			openNewItem: false
 	    }
 	}
 	formatBarChart = (allItens)=>{
@@ -195,6 +196,29 @@ class MainComponent extends React.Component {
 		this.getitens()
 		
 	}
+	createItens = async (item) => {
+
+
+		try {
+			const newItem = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem', {
+				method: 'POST',
+				credentials: 'include',
+				body: JSON.stringify(item),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			this.getitens()
+			// this.setState({
+			// 	showNewItemForm: false
+			// })
+
+		}
+		catch (err) {
+			console.log(err)
+		}
+	}
   	getitens = async ()=> {
 
 
@@ -218,7 +242,7 @@ class MainComponent extends React.Component {
 			this.setState({
 				// showChart: true,
 				// showEditPage: false,
-				// showNewItemForm: false,
+				showNewItemForm: false,
 				allItens: parsedResponse,
 				chartBarData: chartBarData,
 				chartLineData: chartLineData,
@@ -244,43 +268,55 @@ class MainComponent extends React.Component {
 		this.setState({
 			showChart: true
 		})
-	}  
+	}
+	showNewItemForm = (e) => {
+		e.preventDefault()
+		const open = !this.state.openNewItem
+		this.setState({
+			openNewItem: open 
+		})
+	}
   	render() {
 		console.log('RENDER Main Componente')
 		
     	return (
       		<div className="MainComponent">
 				<div id='MainComponentMenu'>
-					<input type='button' value='Report' onClick={this.showReport}/>
-					<input type='button' value='Chart' onClick={this.showChart}/>
+					<h4>Balance: {this.state.totalBalance}</h4>
+					<h4>Epenses: {this.state.totalExpense}</h4>
+					<input className="btn report" type='button' value='Report' onClick={this.showReport} />
+					<input className="btn chart" type='button' value='Chart' onClick={this.showChart}/>
+					<input className="btn newItem" type='button' value='New Item' onClick={this.showNewItemForm}/>
+					<Collapsible 
+						// trigger={}
+						transitionTime={500}
+						open={this.state.openNewItem}>
+						<div>
+							<NewItemForm createItens={this.createItens} />
+						</div>
+					</Collapsible>
+
 				</div>
-		      	<div className="main-container">
-					{this.state.showChart?
-					
-				    	<ChartComponent allItens={this.state.allItens} 
-						chartBarData={this.state.chartBarData}
-						chartLineData={this.state.chartLineData}/>
-				    :
-						<ItemComponent showNewItemForm={this.showNewItemForm} 
-									   allItens={this.state.allItens} 
-									   deleteItens={this.deleteItens}
-									   ItemToEdit={this.ItemToEdit}
-									   totalExpense={this.state.totalExpense}
-									   totalBalance={this.state.totalBalance}
-									//    createItens={this.createItens}
-									   getitens={this.getitens}/>
-				    }
-				    {this.state.showRegister?
-				    	<RegisterComponent/>
-				    	:
-				    	null
-				    }
-		      	</div>
-      		</div>
+				<div id='MainComponentContent'>
+						{this.state.showChart?	
+							<ChartComponent allItens={this.state.allItens} 
+							chartBarData={this.state.chartBarData}
+							chartLineData={this.state.chartLineData}/>
+						:
+							<ItemComponent showNewItemForm={this.showNewItemForm} 
+										allItens={this.state.allItens} 
+										deleteItens={this.deleteItens}
+										ItemToEdit={this.ItemToEdit}
+										getitens={this.getitens}/>
+						}
+						{this.state.showRegister?
+							<RegisterComponent/>
+							:
+							null
+						}
+		      		</div>
+      			</div>
     	);
   	}
 }
 export default MainComponent;
-				    // <div className="menuComponent">
-				    //     <p>menuComponent</p>
-			     //    </div>

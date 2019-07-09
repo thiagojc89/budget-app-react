@@ -33,35 +33,6 @@ class ItemComponent extends React.Component{
 			[e.currentTarget.name]: e.currentTarget.value
 		})
 	}
-	showNewItemForm = (e)=> {
-		e.preventDefault()
-		this.setState({
-			showNewItemForm: true
-		})
-	}
-	createItens = async (item)=> {
-
-
-		try{
-			const newItem = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem', {
-				method: 'POST',
-				credentials: 'include',
-				body: JSON.stringify(item),
-				headers: {
-				  'Content-Type': 'application/json'
-				}
-		   	});
-
-		   this.props.getitens()
-		   this.setState({
-			showNewItemForm: false
-		   })
-
-		}
-		catch(err){
-			console.log(err)
-		}
-  	}
 	deleteItens = async (item,e)=> {
 		e.preventDefault()
 		  try{
@@ -192,15 +163,8 @@ class ItemComponent extends React.Component{
 		console.log(this.state.allItens,'state in the render')
 		return(
 				<div className="itemComponent">
-					
-					<h4>Balance: {this.props.totalBalance}</h4>
-					<h4>Epenses: {this.props.totalExpense}</h4>
-					
 					<br/>
 					<br/> 
-					<form onSubmit={this.showNewItemForm}>
-						<button className="btn newItem">New Item</button>
-					</form>
 					<ShowItem allItens={this.props.allItens}
 							  deleteItens={this.deleteItens}
 							  enableEdit={this.enableEdit}
@@ -212,11 +176,6 @@ class ItemComponent extends React.Component{
 				    	null
 				    }
 				    
-				    {this.state.showNewItemForm?
-				    	<NewItemForm createItens={this.createItens}/>
-				    	:
-				    	null
-				    }
 				</div>
 		)
 	}

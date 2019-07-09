@@ -97,11 +97,14 @@ class Header extends React.Component {
       <div className="header">
         
         <div id='nav'>
-        <p id='logo'><strong>Money Chart</strong></p>
+          <div id='logo'>
+            <Label>Money</Label>
+            <Label>Chart</Label>
+          </div>
         
         {
         	!this.props.logged ?
-            <div>
+            <div className="login">
   		        <Form onSubmit={this.handleLogin}>
                 <div>
 
@@ -115,8 +118,8 @@ class Header extends React.Component {
   		        </Form>
             </div>
 		        : 
-            <div>
-                <h2 id='logout'>Hello {this.props.first_name}</h2>
+            <div className="login2">
+                <div id='logout'>Hello {this.props.first_name}</div>
                 <button className='btn logout' onClick={this.logOut}> (Log-Out)</button>
             </div>
                 

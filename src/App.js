@@ -2,9 +2,9 @@ import React from 'react';
 import './App.css';
 import Header from './Header';
 import HomePage from './HomePage';
+import Footer from './Footer';
 import MainComponent from './MainComponent';
 import RegisterComponent from './RegisterComponent';
-// import { Route, Switch } from 'react-router-dom';
 
 
 class App extends React.Component {
@@ -89,6 +89,7 @@ class App extends React.Component {
               }
               </div>
             }
+            <Footer/>
           
         </div>
       );
