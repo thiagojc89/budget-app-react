@@ -32,7 +32,7 @@ const ChartComponent =(props)=> {
 								yAxes: [{
 									ticks: {
 										beginAtZero:true,
-										stepSize: 100
+										stepSize: 300
 										}
 									}]
 								}

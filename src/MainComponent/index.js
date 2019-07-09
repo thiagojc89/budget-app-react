@@ -128,17 +128,17 @@ class MainComponent extends React.Component {
 
 		const expenses = new DatasetsTemplate()
 		expenses.datasets.borderColor = 'rgba(225,0,0,.7)'
-		expenses.datasets.steppedLine = true
+		expenses.datasets.steppedLine = false
 		expenses.datasets.label = 'expense'
 		
 		const deposits = new DatasetsTemplate()
 		deposits.datasets.borderColor = 'rgba(0,0,225,.7)'
-		deposits.datasets.steppedLine = true
+		deposits.datasets.steppedLine = false
 		deposits.datasets.label = 'deposits'
 
 		const balance = new DatasetsTemplate()
 		balance.datasets.borderColor = 'rgba(0,225,0,.7)'
-		balance.datasets.steppedLine = true
+		balance.datasets.steppedLine = false
 		balance.datasets.label = 'balance'
 
 		allItens.forEach((item, i)=>{
@@ -271,9 +271,9 @@ class MainComponent extends React.Component {
 	}
 	showNewItemForm = (e) => {
 		e.preventDefault()
-		const open = !this.state.openNewItem
+		// const open = !this.state.openNewItem
 		this.setState({
-			openNewItem: open 
+			openNewItem: !this.state.openNewItem
 		})
 	}
   	render() {
@@ -292,7 +292,7 @@ class MainComponent extends React.Component {
 						transitionTime={500}
 						open={this.state.openNewItem}>
 						<div>
-							<NewItemForm createItens={this.createItens} />
+							<NewItemForm createItens={this.createItens} showNewItemForm={this.showNewItemForm} />
 						</div>
 					</Collapsible>
 

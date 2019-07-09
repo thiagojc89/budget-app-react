@@ -179,15 +179,18 @@ h1,h2,h3,h4{
 .MainComponent{
   display: flex;
   flex-direction: row;
-  margin-top: 30px;
-  justify-content: space-between;
+  margin-top: 50px;
+  justify-content: space-around;
 }
 #MainComponentMenu{
+  position: -webkit-sticky;
+  position: sticky;
+  right: -1px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-left: 36px;
+  margin-left: 100px;
 }
 #MainComponentMenu Collapsible{
   display: flex;
@@ -198,7 +201,7 @@ h1,h2,h3,h4{
   border: 90px solid black;
 }
 #MainComponentContent{
-  margin-right: 36px;
+  margin-right: 100px;
 }
 
 .itemComponent{
@@ -240,8 +243,15 @@ h1,h2,h3,h4{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin: 5px;
-  width: 100%;
+  width: 760px;
+}
+.chartContent{
+  margin-bottom: 30px;
+  /* border: 2px solid rgb(97, 111, 135); */
+  border: 5px solid rgba(0, 0, 0, 0.137);
+  /* margin: 15px 0; */
+  border-radius: 30px;
+  padding: 18px;  
 }
 .newItemForm{
   display: flex;
@@ -274,10 +284,6 @@ h1,h2,h3,h4{
   flex-direction: column;
 }
 
-.chartContent{
-  border: 2px solid rgb(97, 111, 135);
-  margin: 15px 0;
-}
 .itemGrid{
   display:flex;
   flex-direction: row;

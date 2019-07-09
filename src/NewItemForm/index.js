@@ -19,7 +19,8 @@ class NewItemForm extends React.Component {
   	}
   	handleSubmit = (e) => {
   		e.preventDefault()
-		this.props.createItens(this.state)  
+		this.props.createItens(this.state)
+		this.props.showNewItemForm(e)
   	}
 	render(){ 
 		return(
