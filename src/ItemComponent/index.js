@@ -1,6 +1,4 @@
 import React from 'react'
-// import Collapsible from 'react-collapsible';
-import NewItemForm from '../NewItemForm'
 import EditItemForm from '../EditItemForm'
 import ShowItem from '../ShowItem'
 
@@ -36,9 +34,9 @@ class ItemComponent extends React.Component{
 	deleteItens = async (item,e)=> {
 		e.preventDefault()
 		  try{
-			  const deleteItens = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem?item_id='+item, {
+			  await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem?item_id='+item, {
 				  method: 'DELETE',
-			  credentials: 'include'
+				  credentials: 'include'
 		  });
 
 			 // const parsedResponse = await deleteItens.json();
@@ -57,19 +55,17 @@ class ItemComponent extends React.Component{
 		// console.log('this is the item I will update', item);
 
 		  try{
-			  const deleteItens = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem?item_id='+item.id, {
+			  await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem?item_id='+item.id, {
 				  method: 'PUT',
-			  credentials: 'include',
-			  body: JSON.stringify(item),
-			  headers: {
+				  credentials: 'include',
+				  body: JSON.stringify(item),
+				  headers: {
 					'Content-Type': 'application/json'
-			  }
-		  });
-
-			 const parsedResponse = await deleteItens.json();
+				}
+			});
 
 
-			 console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
+			//  console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
 
 			 this.props.getitens()
 			//  this.setState({
@@ -95,12 +91,12 @@ class ItemComponent extends React.Component{
 	itens = ()=> {
 
 		
-		console.log(this.state.allItens,'<===this.state.allItens')
+		// console.log(this.state.allItens,'<===this.state.allItens')
 		// if (this.state.allItens === false || this.state.allItens.length === 0){
 		// 		return null
 		// }
-		console.log('gettin itens')	
-		console.log(this.props.allItens, '<<<<--- allItens')
+		// console.log('gettin itens')	
+		// console.log(this.props.allItens, '<<<<--- allItens')
 		return ( 
 				
 			this.props.allItens.map((item, i)=>{
@@ -160,7 +156,7 @@ class ItemComponent extends React.Component{
 		)
 	}
 	render(){
-		console.log(this.state.allItens,'state in the render')
+		// console.log(this.state.allItens,'state in the render')
 		return(
 				<div className="itemComponent">
 					<br/>

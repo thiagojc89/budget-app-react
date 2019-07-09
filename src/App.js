@@ -33,7 +33,7 @@ class App extends React.Component {
 
     const parsedResponse = await loginResponse.json();
 
-    console.log(parsedResponse);
+    // console.log(parsedResponse);
 
     if (parsedResponse[0]==='true'){
 

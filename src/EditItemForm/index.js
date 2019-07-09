@@ -15,7 +15,7 @@ class EditItemForm extends React.Component {
 	}
 	componentDidMount(props){
 
-			console.log(this.props.ItemToEdit.transaction);
+			// console.log(this.props.ItemToEdit.transaction);
 		if (this.props.ItemToEdit.transaction==='expense'){
 			
 			const transactionRbtn = document.getElementById("exp");

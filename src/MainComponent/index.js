@@ -192,7 +192,7 @@ class MainComponent extends React.Component {
 
 	}
 	componentDidMount(){
-		console.log('CDM in Main component')
+		// console.log('CDM in Main component')
 		this.getitens()
 		
 	}
@@ -200,7 +200,7 @@ class MainComponent extends React.Component {
 
 
 		try {
-			const newItem = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem', {
+				await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem', {
 				method: 'POST',
 				credentials: 'include',
 				body: JSON.stringify(item),
@@ -230,7 +230,7 @@ class MainComponent extends React.Component {
    			const parsedResponse = await allitens.json();
 
 			
-   			console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
+   			// console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
 
    			const chartBarData =  this.formatBarChart(parsedResponse)
 
@@ -277,7 +277,7 @@ class MainComponent extends React.Component {
 		})
 	}
   	render() {
-		console.log('RENDER Main Componente')
+		// console.log('RENDER Main Componente')
 		
     	return (
       		<div className="MainComponent">

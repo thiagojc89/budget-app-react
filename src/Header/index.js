@@ -34,7 +34,7 @@ class Header extends React.Component {
 
 
 
-    console.log(parsedResponse);
+    // console.log(parsedResponse);
     if (parsedResponse.id){
 
       this.props.appLogin({
@@ -50,22 +50,6 @@ class Header extends React.Component {
 
   }
 
-  handleRegister = async (e) => {
-  	console.log("hiting login handler in header Component");
-    e.preventDefault();
-    const registerResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/auth/register', {
-      method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify(this.state),
-      headers: {
-          'Content-Type': 'application/json'
-        }
-    });
-
-    const parsedResponse = await registerResponse.json();
-
-  }
-
   regOrLog = (e)=>{
     e.preventDefault()
 
@@ -75,12 +59,11 @@ class Header extends React.Component {
   logOut = async (e)=>{
     e.preventDefault()
 
-    const logoutResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/auth/logout', {
+    await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/auth/logout', {
       method: 'GET',
       credentials: 'include'
     });
 
-    const parsedResponse = await logoutResponse.json();
 
     // console.log(parsedResponse);
 

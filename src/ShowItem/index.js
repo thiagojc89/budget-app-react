@@ -18,11 +18,11 @@ class ShowItem extends React.Component {
     }
     componentDidUpdate(prevProps) {
         
-        console.log('CDU in item ShowItem', this.props.allItens)
+        // console.log('CDU in item ShowItem', this.props.allItens)
         if (this.props.allItens !== prevProps.allItens){
 
             
-            console.log('CDU in item ShowItem Atualizado')
+            // console.log('CDU in item ShowItem Atualizado')
             
             this.setState({
                 allItens: this.props.allItens
@@ -30,7 +30,7 @@ class ShowItem extends React.Component {
         }
     }
     handleChange = (e) => {
-        console.log('e.currentTarget.name', e.currentTarget.name)
+        // console.log('e.currentTarget.name', e.currentTarget.name)
         this.setState({
             [e.currentTarget.name]: e.currentTarget.value
         })
@@ -71,7 +71,7 @@ class ShowItem extends React.Component {
         document.querySelector(`#grid${item.id} .itemGridToEdit`).style.display = 'none'
     }
     render(){
-        console.log('Render in item ShowItem', this.state.allItens)
+        // console.log('Render in item ShowItem', this.state.allItens)
         const itemList = this.props.allItens.map((item, i) => {
             return (
                 <div id={'grid'+item.id} key={i}>

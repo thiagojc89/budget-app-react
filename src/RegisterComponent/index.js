@@ -23,7 +23,7 @@ class Register extends React.Component {
   handleRegister = async (e) => {
   	console.log("hiting login handler in header Component");
     e.preventDefault();
-    const registerResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/auth/register', {
+    await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/auth/register', {
       method: 'POST',
       credentials: 'include',
       body: JSON.stringify(this.state),
@@ -32,7 +32,7 @@ class Register extends React.Component {
         }
     });
 
-    const parsedResponse = await registerResponse.json();
+    // const parsedResponse = await registerResponse.json();
 
 
     this.props.appLogin({
