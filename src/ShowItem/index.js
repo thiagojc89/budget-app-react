@@ -72,9 +72,15 @@ class ShowItem extends React.Component {
     }
     render(){
         // console.log('Render in item ShowItem', this.state.allItens)
-        const itemList = this.props.allItens.map((item, i) => {
-            return (
-                <div id={'grid'+item.id} key={i}>
+        let itemList
+        if (this.props.allItens.length===0){
+            itemList = [<p className='noItem'>No items to display.<br/>Create a new item by cliking on the button on the left, and we will do the rest.</p>]
+        }
+        else{
+
+            itemList = this.props.allItens.map((item, i) => {
+                return (
+                    <div id={'grid'+item.id} key={i}>
 
                     <div className='itemGrid'>
                     <div>
@@ -163,7 +169,8 @@ class ShowItem extends React.Component {
                 </div>
             )
         })
-    return (<div className="itemList">
+        }
+        return (<div className="itemList">
                 {itemList}
             </div>)
     }

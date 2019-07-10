@@ -88,73 +88,79 @@ class ItemComponent extends React.Component{
 		})
 		this.enableEdit()
   	}
-	itens = ()=> {
+	// itens = ()=> {
+	
+	// 	// console.log(this.state.allItens,'<===this.state.allItens')
+	// 	// if (this.state.allItens === false || this.state.allItens.length === 0){
+	// 	// 		return null
+	// 	// }
+	// 	console.log('gettin itens')	
+	// 	console.log(this.props.allItens.lenght, '<<<<--- allItens')
 
-		
-		// console.log(this.state.allItens,'<===this.state.allItens')
-		// if (this.state.allItens === false || this.state.allItens.length === 0){
-		// 		return null
-		// }
-		// console.log('gettin itens')	
-		// console.log(this.props.allItens, '<<<<--- allItens')
-		return ( 
+	// 	if (this.props.allItens.lenght===0){
+	// 		return <h2>teste</h2>
+	// 	}
+	// 	else{
+
+	// 		return ( 
 				
-			this.props.allItens.map((item, i)=>{
-				return(
-					<div className='itemGrid' key={item.id}>
+	// 			this.props.allItens.map((item, i)=>{
+	// 				return(
+	// 					<div className='itemGrid' key={item.id}>
 
-						<div>
-							{item.transaction==='deposit'?
-							<select className={item.id} disabled value='deposit'>
-								<option value='deposit'>Deposit</option>
-								<option value='expense'>Expense</option>
-							</select>
-							:
-							<select className={item.id} disabled value='expense'>
-								<option value='deposit'>Deposit</option>
-								<option value='expense'>Expense</option>
-							</select>}
-						</div>
-						<div>
-							<input className={item.id} 
-								   type='text' 
-								   name="name" 
-								   onChange={this.handleChange} 
-								   disabled
-								   value={item.name} />
-						</div>
-						<div>
-							<input className={item.id} 
-								   type='number' min="0" step=".01" 
-								   name="value" onChange={this.handleChange}
-							       disabled
-							       value={item.value}/>
-						</div>
-						<div>
-							<input className={item.id}
-								   type='date' 
-								   name="payment_date" onChange={this.handleChange}
-								   disabled
-								   value={item.payment_date} />
-						</div>
+	// 					<div>
+	// 						{item.transaction==='deposit'?
+	// 						<select className={item.id} disabled value='deposit'>
+	// 							<option value='deposit'>Deposit</option>
+	// 							<option value='expense'>Expense</option>
+	// 						</select>
+	// 						:
+	// 						<select className={item.id} disabled value='expense'>
+	// 							<option value='deposit'>Deposit</option>
+	// 							<option value='expense'>Expense</option>
+	// 						</select>}
+	// 					</div>
+	// 					<div>
+	// 						<input className={item.id} 
+	// 							   type='text' 
+	// 							   name="name" 
+	// 							   onChange={this.handleChange} 
+	// 							   disabled
+	// 							   value={item.name} />
+	// 					</div>
+	// 					<div>
+	// 						<input className={item.id} 
+	// 							   type='number' min="0" step=".01" 
+	// 							   name="value" onChange={this.handleChange}
+	// 						       disabled
+	// 						       value={item.value}/>
+	// 					</div>
+	// 					<div>
+	// 						<input className={item.id}
+	// 							   type='date' 
+	// 							   name="payment_date" onChange={this.handleChange}
+	// 							   disabled
+	// 							   value={item.payment_date} />
+	// 					</div>
 					
-						<div>
-							<input className="btn delete"
-								   type='button' 
-								   value='Delete' 
-								   onClick={this.deleteItens.bind(null,item.id)}/>
-						</div>
-						<div>
-							<input className="btn edit" 
-									type='button' 
-									value='Edit' 
-									onClick={this.enableEdit.bind(null,item)}/>
-						</div>
-					</div>		
-				)
-			})
-		)
-	}
+	// 					<div>
+	// 						<input className="btn delete"
+	// 							   type='button' 
+	// 							   value='Delete' 
+	// 							   onClick={this.deleteItens.bind(null,item.id)}/>
+	// 					</div>
+	// 					<div>
+	// 						<input className="btn edit" 
+	// 								type='button' 
+	// 								value='Edit' 
+	// 								onClick={this.enableEdit.bind(null,item)}/>
+	// 					</div>
+	// 				</div>		
+	// 			)
+	// 		})
+	// 		)
+	// 	}
+	// }
 	render(){
 		// console.log(this.state.allItens,'state in the render')
 		return(

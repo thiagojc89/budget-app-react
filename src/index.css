@@ -29,7 +29,7 @@ h1,h2,h3,h4{
 }
 .login{
   margin-top: 16px;
-  margin-right: 20px;
+  margin-right: 50px;
 }
 .border{
   border: 2px solid black;
@@ -40,7 +40,7 @@ h1,h2,h3,h4{
   /* align-items: center; */
   justify-content: center;
   margin-top: 16px;
-  margin-right: 20px;
+  margin-right: 50px;
 }
 #register{
   display: flex;
@@ -58,7 +58,7 @@ h1,h2,h3,h4{
 #logo{
   padding: 0;
   margin-top: 16px;
-  margin-left: 20px;
+  margin-left: 50px;
   font-size: 60px;
   /* border: 2px solid gray; */
   width: auto;
@@ -164,7 +164,8 @@ h1,h2,h3,h4{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 20px;
+  /* font-size: 20px; */
+  /* line-height: 150%; */
   width: 800px;
 }
 
@@ -173,14 +174,15 @@ h1,h2,h3,h4{
   font-weight: 700;
 }
 #sitedescription p{
-  font-size: 18px;  
+  font-weight: 100;
+  font-size: 25px;  
   line-height: 150%
 }
 .MainComponent{
   display: flex;
   flex-direction: row;
   margin-top: 50px;
-  justify-content: space-around;
+  justify-content: center;
 }
 #MainComponentMenu{
   position: -webkit-sticky;
@@ -190,7 +192,8 @@ h1,h2,h3,h4{
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-left: 100px;
+  margin-left: 55px;
+  margin-right: 15px;
 }
 #MainComponentMenu Collapsible{
   display: flex;
@@ -201,7 +204,7 @@ h1,h2,h3,h4{
   border: 90px solid black;
 }
 #MainComponentContent{
-  margin-right: 100px;
+  margin-right: 55px;
 }
 
 .itemComponent{
@@ -232,7 +235,14 @@ h1,h2,h3,h4{
   align-items: flex-start;
   border: 5px solid rgba(0, 0, 0, 0.137);
   border-radius: 30px;
-  padding: 18px;
+  padding: 10px;
+  max-width: 650px;
+  /* width: 100px; */
+}
+.noItem{
+  font-weight: 100;
+  font-size: 25px;  
+  line-height: 150%
 }
 .Collapsible__contentInner{
   display: flex;
@@ -287,14 +297,14 @@ h1,h2,h3,h4{
 .itemGrid{
   display:flex;
   flex-direction: row;
-  justify-content: center;
+  /* justify-content: space-around; */
   align-content: center;
-  height: 100%;
-  width: 100%;
+  /* height: 100%; */
+  /* width: 100%; */
 }
 .itemGrid div{
   /* border-left: 2px solid grey ; */
-  padding: 5px 10px;
+  padding: 5px 5px;
   display:flex;
   flex-direction: row;
   justify-content: center;
