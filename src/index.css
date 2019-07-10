@@ -10,7 +10,9 @@ body {
   /* -moz-osx-font-smoothing: grayscale; */
   font-size: 20px;
   color:rgb(9, 75, 36);
-  /* background: rgba(27, 216, 74, 0.623); */
+  /* background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(127, 184, 119, 0.9)); */
+  height: 900px;
+
 }
 
 code {
@@ -336,4 +338,10 @@ h1,h2,h3,h4{
 }
 input{
   font-size: 15px;
+}
+.footerComponent{
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  margin-top: 250px;
 }
