@@ -236,7 +236,7 @@ h1,h2,h3,h4{
   border: 5px solid rgba(0, 0, 0, 0.137);
   border-radius: 30px;
   padding: 10px;
-  max-width: 650px;
+  max-width: 790px;
   /* width: 100px; */
 }
 .noItem{
@@ -333,4 +333,7 @@ h1,h2,h3,h4{
 }
 .itemGridToEdit :first-child{
   margin-top: 8px;
+}
+input{
+  font-size: 15px;
 }
