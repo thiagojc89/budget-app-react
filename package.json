@@ -43,5 +43,9 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.9.0"
-  }
+  },
+  "engines": {
+  "node": "10.15.3",
+  "npm": "7.15.0"
+},
 }
