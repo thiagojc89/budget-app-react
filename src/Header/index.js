@@ -34,7 +34,6 @@ class Header extends React.Component {
 
 
 
-    // console.log(parsedResponse);
     if (parsedResponse.id){
 
       this.props.appLogin({
@@ -57,15 +56,11 @@ class Header extends React.Component {
 
   }
   logOut = async (e)=>{
-    e.preventDefault()
 
     await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/auth/logout', {
       method: 'GET',
       credentials: 'include'
     });
-
-
-    // console.log(parsedResponse);
 
     this.setState({
       username: null,

@@ -74,7 +74,7 @@ class ShowItem extends React.Component {
         // console.log('Render in item ShowItem', this.state.allItens)
         let itemList
         if (this.props.allItens.length===0){
-            itemList = [<p className='noItem'>No items to display.<br/>Create a new item by cliking on the button on the left, and we will do the rest.</p>]
+            itemList = <p className='noItem'>No items to display.<br/>Create a new item by cliking on the button on the left, and we will do the rest.</p>
         }
         else{
 

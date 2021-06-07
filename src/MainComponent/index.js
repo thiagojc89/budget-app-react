@@ -66,10 +66,10 @@ class MainComponent extends React.Component {
 		arr.forEach((num, index)=>{
 
 			if (index === 0){
-				newArray.splice(index,1,parseInt(num))
+				newArray.splice(index,1,parseInt(num,10))
 			}
 			else{
-				newArray.splice(index,1,parseInt(num)+parseInt(arr[index-1]))
+				newArray.splice(index,1,parseInt(num,10)+parseInt(arr[index-1],10))
 			}
 
 		})
@@ -84,10 +84,10 @@ class MainComponent extends React.Component {
 		arr.forEach((num, index)=>{
 
 			if (index === 0){
-				newArray.splice(index,1,parseInt(num))
+				newArray.splice(index,1,parseInt(num,10))
 			}
 			else{
-				newArray.splice(index,1,parseInt(num)+parseInt(arr[index-1]))
+				newArray.splice(index,1,parseInt(num,10)+parseInt(arr[index-1],10))
 			}
 
 		})
@@ -151,15 +151,15 @@ class MainComponent extends React.Component {
 				if (i === 0){
 					
 					deposits.datasets.data.push(0)	
-					expenses.datasets.data.push(parseInt(item.value))
-					balance.datasets.data.push(parseInt(item.value))
-					totalExpense = parseInt(item.value)
+					expenses.datasets.data.push(parseInt(item.value,10))
+					balance.datasets.data.push(parseInt(item.value,10))
+					totalExpense = parseInt(item.value,10)
 				}
 				else{
-					expenses.datasets.data.push(parseInt(item.value) + expenses.datasets.data[i-1])
+					expenses.datasets.data.push(parseInt(item.value,10) + expenses.datasets.data[i-1])
 					deposits.datasets.data.push(deposits.datasets.data[i-1])
-					balance.datasets.data.push(balance.datasets.data[i-1] - parseInt(item.value))
-					totalExpense = parseInt(item.value) + expenses.datasets.data[i-1]
+					balance.datasets.data.push(balance.datasets.data[i-1] - parseInt(item.value,10))
+					totalExpense = parseInt(item.value,10) + expenses.datasets.data[i-1]
 				}
 			
 			}
@@ -167,15 +167,15 @@ class MainComponent extends React.Component {
 
 				if (i === 0 ){
 					expenses.datasets.data.push(0)		
-					deposits.datasets.data.push(parseInt(item.value))
-					balance.datasets.data.push(parseInt(item.value))
-					totalBalance = parseInt(item.value)
+					deposits.datasets.data.push(parseInt(item.value,10))
+					balance.datasets.data.push(parseInt(item.value,10))
+					totalBalance = parseInt(item.value,10)
 				}
 				else{
-					deposits.datasets.data.push(parseInt(item.value) + deposits.datasets.data[i-1])
+					deposits.datasets.data.push(parseInt(item.value,10) + deposits.datasets.data[i-1])
 					expenses.datasets.data.push(expenses.datasets.data[i-1])
-					balance.datasets.data.push(balance.datasets.data[i-1] + parseInt(item.value))
-					totalBalance = parseInt(item.value) + deposits.datasets.data[i-1]
+					balance.datasets.data.push(balance.datasets.data[i-1] + parseInt(item.value,10))
+					totalBalance = parseInt(item.value,10) + deposits.datasets.data[i-1]
 				}
 			}
 		})

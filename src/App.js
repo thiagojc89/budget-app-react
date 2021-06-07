@@ -28,12 +28,10 @@ class App extends React.Component {
   getUser = async ()=>{
     const loginResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/auth/login', {
       method: 'GET',
-      credentials: 'include',
+      credentials: 'include'
     });
 
     const parsedResponse = await loginResponse.json();
-
-    // console.log(parsedResponse);
 
     if (parsedResponse[0]==='true'){
 

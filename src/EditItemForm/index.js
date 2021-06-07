@@ -29,7 +29,7 @@ class EditItemForm extends React.Component {
 		this.setState({
 			id: this.props.ItemToEdit.id,
 			name: this.props.ItemToEdit.name,
-			value: parseInt(this.props.ItemToEdit.value),
+			value: parseInt(this.props.ItemToEdit.value,10),
 			payment_date: this.props.ItemToEdit.payment_date,
 			transaction: this.props.ItemToEdit.transaction,
 		})
