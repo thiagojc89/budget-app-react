@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Header from './Header';
-import HomePage from './HomePage';
-import Footer from './Footer';
-import MainComponent from './MainComponent';
-import RegisterComponent from './RegisterComponent';
+import Header from './Components/Header';
+import HomePage from './Components/HomePage';
+import Footer from './Components/Footer';
+import MainComponent from './Components/MainComponent';
+import RegisterComponent from './Components/RegisterComponent';
 
 
 class App extends React.Component {
