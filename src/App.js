@@ -8,9 +8,6 @@ import RegisterComponent from './RegisterComponent';
 
 
 class App extends React.Component {
-  // constructor -- logged in -- username
-
-  // function to lift up state from Header?
   constructor (){
     super()
 

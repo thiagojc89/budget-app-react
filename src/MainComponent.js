@@ -1,9 +1,9 @@
 import React from 'react';
-import ItemComponent from '../ItemComponent'
-import ChartComponent from '../ChartComponent'
-import NewItemForm from '../NewItemForm'
+import ItemComponent from './ItemComponent'
+import ChartComponent from './ChartComponent'
+import NewItemForm from './NewItemForm'
 // import EditItemForm from '../EditItemForm'
-import RegisterComponent from '../RegisterComponent'
+import RegisterComponent from './RegisterComponent'
 import Collapsible from 'react-collapsible';
 
 

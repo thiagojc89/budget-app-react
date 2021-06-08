@@ -1,6 +1,6 @@
 import React from 'react'
-import EditItemForm from '../EditItemForm'
-import ShowItem from '../ShowItem'
+import EditItemForm from './EditItemForm'
+import ShowItem from './ShowItem'
 
 
 class ItemComponent extends React.Component{
