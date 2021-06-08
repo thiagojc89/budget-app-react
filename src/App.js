@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import Header from './Components/Header';
 import HomePage from './Components/HomePage';
@@ -7,22 +7,19 @@ import MainComponent from './Components/MainComponent';
 import RegisterComponent from './Components/RegisterComponent';
 
 
-class App extends React.Component {
-  constructor (){
-    super()
+function App(){
+  const [email, setEmail] = useState('')
+  const [first_name, setFirstName] = useState('')
+  const [last_name, setLastName] = useState('')
+  const [logged, setLogged] = useState(false)
+  const [showRegister, setShowRegister] = useState(false)
 
-    this.state = {
-      email: '',
-      first_name: '',
-      last_name:'',
-      logged: false,
-      showRegister: false
-    }
-  }
-  componentDidMount(){
-    this.getUser()
-  }
-  getUser = async ()=>{
+  useEffect(() => {
+    console.log('is this running');
+    getUser()
+  },[]);
+
+  const getUser = async ()=>{
     const loginResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/auth/login', {
       method: 'GET',
       credentials: 'include'
@@ -31,54 +28,44 @@ class App extends React.Component {
     const parsedResponse = await loginResponse.json();
 
     if (parsedResponse[0]==='true'){
-
-      this.setState({
-        first_name: parsedResponse[1].first_name,
-        logged: true,
-        showRegister: false
-      })
-
+      setFirstName(parsedResponse[1].first_name)
+      setLogged(true)
+      setShowRegister(true)
     }
   }
-  appLogin = (userData) => {
+  const appLogin = (userData) => {
+    setEmail(userData.email)
+    setFirstName(userData.first_name)
+    setLastName(userData.last_name)
+    setLogged(userData.logged)
     
-    // set state at app level based on a parameter 
-    this.setState({
-      email:userData.email,
-      first_name:userData.first_name,
-      last_name:userData.last_name,
-      logged:userData.logged
+  }
+  const logOut = ()=>{
+    setEmail(null)
+    setFirstName(null)
+    setLastName(null)
+    setLogged(null)
+    setShowRegister(false)
+  }
+  const Register = ()=>{
+    setShowRegister(true)
+    // this.setState({showRegister:true})
+  }
 
-    })
-  }
-  logOut = ()=>{
-      this.setState({
-        email:null,
-        first_name:null,
-        last_name:null,
-        logged:null,
-        showRegister:false
-    })
-  }
-  showRegister = ()=>{
-    this.setState({showRegister:true})
-  }
-  render() {
-      return (
+  return (
         <div className="App">
           
-            <Header appLogin={this.appLogin} 
-                    first_name={this.state.first_name} 
-                    logged={this.state.logged}
-                    logOut={this.logOut}
-                    showRegister={this.showRegister}/> 
+            <Header appLogin={appLogin} 
+                    first_name={first_name} 
+                    logged={logged}
+                    logOut={logOut}
+                    showRegister={Register}/> 
 
-            {this.state.logged?
+            {logged?
               <MainComponent/>
             :
               <div>
-              {this.state.showRegister?
-                <RegisterComponent appLogin={this.appLogin} />
+              {showRegister? <RegisterComponent appLogin={appLogin} />
                 :
                 <HomePage/>
               }
@@ -87,9 +74,7 @@ class App extends React.Component {
             <Footer/>
           
         </div>
-      );
-    }
-  }
+      )}
 
 
 export default App;
