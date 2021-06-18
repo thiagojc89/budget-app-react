@@ -2,7 +2,6 @@ import React from 'react';
 import ItemComponent from './ItemComponent'
 import ChartComponent from './ChartComponent'
 import NewItemForm from './NewItemForm'
-// import EditItemForm from '../EditItemForm'
 import RegisterComponent from './RegisterComponent'
 import Collapsible from 'react-collapsible';
 
@@ -15,7 +14,6 @@ class MainComponent extends React.Component {
 	    	itens:[],
 	    	allItens:[],
 	    	showChart: false,
-	    	// showEditPage:false,
 	    	showNewItemForm: false,
 	    	showRegister: false,
 	    	chartLineData:{},
@@ -33,11 +31,7 @@ class MainComponent extends React.Component {
 			datasets:[{
 				label: 'COLOR', 
 				data:[],
-				backgroundColor: [
-					'red',
-					'green',
-					'blue'
-				]
+				backgroundColor: ['red','green','blue']
 			}]
 		}
 
@@ -53,7 +47,6 @@ class MainComponent extends React.Component {
 
 		chartBarData.labels = labels
 		chartBarData.datasets[0].data = values
-
 
 		return chartBarData
 
@@ -102,12 +95,9 @@ class MainComponent extends React.Component {
 		}
 
 		class DatasetsTemplate{
-			// constructor(datasets){
-			// }
 			labels = []
 			datasets =
 			{
-		      // label: 'My First dataset',
 		      fill: false,
 		      lineTension: .4,
 		      borderColor: 'rgba(75,92,92,1)',
@@ -143,8 +133,6 @@ class MainComponent extends React.Component {
 
 		allItens.forEach((item, i)=>{
 			chartLineData.labels.push(item.payment_date)
-			
-			// console.log(item.transaction);
 			
 			if (item.transaction==='expense'){
 				
@@ -183,9 +171,6 @@ class MainComponent extends React.Component {
 		chartLineData.datasets.push(expenses.datasets)
 		chartLineData.datasets.push(deposits.datasets)
 
-		// console.log('chartLineData.datasets after push deposits');
-		// console.log(chartLineData.datasets);		
-
 		totalBalance = totalBalance - totalExpense
 
 		return [chartLineData , totalBalance, totalExpense]
@@ -210,9 +195,6 @@ class MainComponent extends React.Component {
 			});
 
 			this.getitens()
-			// this.setState({
-			// 	showNewItemForm: false
-			// })
 
 		}
 		catch (err) {
@@ -221,27 +203,17 @@ class MainComponent extends React.Component {
 	}
   	getitens = async ()=> {
 
-
   	  	try{
   	  		const allitens = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/user/budgetitem', {
 			    credentials: 'include'
 			});
 
    			const parsedResponse = await allitens.json();
-
-			
-   			// console.log(parsedResponse,'parsedResponse of getitens in MainComponent');
-
    			const chartBarData =  this.formatBarChart(parsedResponse)
-
    			const [chartLineData,totalBalance,totalExpense] =  this.formatLineChart(parsedResponse)
-
-   			// console.log('this is the TOTAL >>>> ',totalBalance, totalExpense);
 
 
 			this.setState({
-				// showChart: true,
-				// showEditPage: false,
 				showNewItemForm: false,
 				allItens: parsedResponse,
 				chartBarData: chartBarData,
@@ -271,7 +243,6 @@ class MainComponent extends React.Component {
 	}
 	showNewItemForm = (e) => {
 		e.preventDefault()
-		// const open = !this.state.openNewItem
 		this.setState({
 			openNewItem: !this.state.openNewItem
 		})
@@ -308,11 +279,6 @@ class MainComponent extends React.Component {
 										deleteItens={this.deleteItens}
 										ItemToEdit={this.ItemToEdit}
 										getitens={this.getitens}/>
-						}
-						{this.state.showRegister?
-							<RegisterComponent/>
-							:
-							null
 						}
 		      		</div>
       			</div>

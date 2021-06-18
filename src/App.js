@@ -7,7 +7,7 @@ import MainComponent from './Components/MainComponent';
 import RegisterComponent from './Components/RegisterComponent';
 
 
-function App(){
+export default function App(){
   const [email, setEmail] = useState('')
   const [first_name, setFirstName] = useState('')
   const [last_name, setLastName] = useState('')
@@ -15,9 +15,8 @@ function App(){
   const [showRegister, setShowRegister] = useState(false)
 
   useEffect(() => {
-    console.log('is this running');
     getUser()
-  },[]);
+  });
 
   const getUser = async ()=>{
     const loginResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/v1/auth/login', {
@@ -49,7 +48,6 @@ function App(){
   }
   const Register = ()=>{
     setShowRegister(true)
-    // this.setState({showRegister:true})
   }
 
   return (
@@ -61,11 +59,10 @@ function App(){
                     logOut={logOut}
                     showRegister={Register}/> 
 
-            {logged?
-              <MainComponent/>
+            {logged ? <MainComponent/>
             :
               <div>
-              {showRegister? <RegisterComponent appLogin={appLogin} />
+                {showRegister? <RegisterComponent appLogin={appLogin} />
                 :
                 <HomePage/>
               }
@@ -74,10 +71,5 @@ function App(){
             <Footer/>
           
         </div>
-      )}
-
-
-export default App;
-
-
+  )}
 

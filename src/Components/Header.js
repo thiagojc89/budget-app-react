@@ -31,9 +31,6 @@ class Header extends React.Component {
     });
 
     const parsedResponse = await loginResponse.json();
-
-
-
     if (parsedResponse.id){
 
       this.props.appLogin({
@@ -85,7 +82,6 @@ class Header extends React.Component {
             <div className="login">
   		        <Form onSubmit={this.handleLogin}>
                 <div>
-
   		            <Label> Email</Label>
   		            <Form.Input type='email' name="email" onChange={this.handleChange} />
   		            <Label> Password</Label>
